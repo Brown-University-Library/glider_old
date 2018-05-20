@@ -20,22 +20,24 @@ class FlightPlan {
     document.onkeydown = function(e) {
 
         e = e || window.event;
-        if (e.keyCode == '37') {
+        if (e.keyCode == '39') {
            hoist.nextPhase();
         }
-        else if (e.keyCode == '39') {
+        else if (e.keyCode == '37') {
            hoist.prevPhase();
         }
     }
   }
 
-  nextPhase() {
-    this.currentPhaseIndex--;
+  prevPhase() {
+    if (this.currentPhaseIndex !== 0)
+      this.currentPhaseIndex--;
     this.renderCurrentPhase();
   }
 
-  prevPhase() {
-    this.currentPhaseIndex++;
+  nextPhase() {
+    if (this.currentPhaseIndex != this.phaseList.length-1)
+      this.currentPhaseIndex++;
     this.renderCurrentPhase();
   }
 
