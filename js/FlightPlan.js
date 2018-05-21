@@ -12,19 +12,21 @@ class FlightPlan {
 
   buildPhases() {
     console.log("building phases...");
+    // using xml syntax right now for ease, #todo convert to preferred markup
   	this.phaseList = document.querySelectorAll("phase");
   }
 
   setupKeyPressListeners () {
-    var hoist = this; // not really hoist but
+    // saving "this" for later in anonymous func
+    var ctx = this; 
     document.onkeydown = function(e) {
 
         e = e || window.event;
         if (e.keyCode == '39') {
-           hoist.nextPhase();
+           ctx.nextPhase();
         }
         else if (e.keyCode == '37') {
-           hoist.prevPhase();
+           ctx.prevPhase();
         }
     }
   }
