@@ -1,0 +1,81 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Grid Layout Example</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+
+<FlightPlan>
+
+    <phase>
+      <display part="1" place="1"></display>
+      <display part="2" place="2"></display>
+    </phase>
+
+    <phase>
+      <display part="8" place="1"></display>
+      <display part="3" place="2"></display>
+    </phase>
+
+    <phase>
+      <display part="4" place="2"></display>
+      <display part="5" place="1"></display>
+    </phase>
+
+  </FlightPlan>
+
+
+
+
+  <div class="display-wall-4x3">
+
+  </div>
+
+
+
+
+
+  <script src="js/vendor/modernizr-3.6.0.min.js"></script>
+
+  <script src="js/plugins.js"></script>
+  <script src="js/Place.js"></script>
+
+
+
+  <script src="js/FlightPlan.js"></script>
+  <script src="js/main.js"></script>
+
+  <script>
+
+    let dispwall = document.querySelector(".display-wall-4x3");
+
+    let place1 = new Place(1, dispwall, "screen", 1, 1, 2, 2);
+    place1.activate();
+
+    let place2 = new Place(2, dispwall, "screen", 3, 1, 1, 2);
+    place2.activate();
+
+    var places = [];
+    places.push(place1);
+    places.push(place2);
+
+
+    const flightPlan = new FlightPlan(places);
+
+  </script>
+</body>
+
+</html>

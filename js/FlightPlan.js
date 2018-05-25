@@ -1,10 +1,12 @@
 class FlightPlan {
   
-  constructor() {
+  constructor(places) {
     console.log("constructing flight plan...");
     this.phaseList;
     this.currentPhaseIndex = 0;
     this.currentPhase;
+    this.places = places;
+
     this.buildPhases();
     this.triggerCurrentPhase();
     this.setupKeyPressListeners();
@@ -18,15 +20,15 @@ class FlightPlan {
 
   setupKeyPressListeners () {
     // saving "this" for later in anonymous func
-    var ctx = this; 
+    let that = this; 
     document.onkeydown = function(e) {
 
         e = e || window.event;
         if (e.keyCode == '39') {
-           ctx.nextPhase();
+           that.nextPhase();
         }
         else if (e.keyCode == '37') {
-           ctx.prevPhase();
+           that.prevPhase();
         }
     }
   }
@@ -43,6 +45,11 @@ class FlightPlan {
     this.triggerCurrentPhase();
   }
 
+  getPlaceByString (str) {
+    var place = this.places.find(function (place) { return place.id == str; });
+    return place;
+  }
+
   triggerCurrentPhase(){
     //console.log("my phaseIndex is" . this.currentPhaseIndex);
     this.currentPhase = this.phaseList[this.currentPhaseIndex];
@@ -55,16 +62,17 @@ class FlightPlan {
     for (var i=0; i< displayList.length; i++) {
       var display = displayList[i];
       var part = display.getAttribute("part");
-      var place = display.getAttribute("place");
+      var targetPlace = display.getAttribute("place");
+      var placeObj = this.getPlaceByString(targetPlace);
+      
 
       // here, there'll be a message sent to the broker/bus to 
       // update global current phase (as in this object)
       // first thought here is that anything acting as a view is simply
       // watching current phase and hitting an endpoint /place/phase pair to get content 
 
-
-      console.log("display part # " + part + " on place # " + place);
-
+      placeObj.setContent("Here, have part #"+part);
+      //console.log("display part # " + part + " on place # " + targetPlace);
     }
   }
 }
