@@ -35,15 +35,18 @@
       <display part="5" place="1"></display>
     </phase>
 
+    <phase>
+      <display part="7" place="2"></display>
+    </phase>    
+
   </FlightPlan>
 
 
 
 
-  <div class="display-wall-4x3">
+  <div class="central-layout display-wall-4x3">
 
   </div>
-
 
 
 
@@ -60,17 +63,33 @@
 
   <script>
 
-    let dispwall = document.querySelector(".display-wall-4x3");
+    let customPlace = getRequestParam("place");
+    let places = [];
 
-    let place1 = new Place(1, dispwall, "screen", 1, 1, 2, 2);
-    place1.activate();
+    if (customPlace == undefined) {
 
-    let place2 = new Place(2, dispwall, "screen", 3, 1, 1, 2);
-    place2.activate();
+      // TODO: messy, but if current client is a custom place 
+      // (i.e., not the central presentation), we don't need to render all the places
 
-    var places = [];
-    places.push(place1);
-    places.push(place2);
+      let centralLayout = document.querySelector(".central-layout");
+
+
+      let place1 = new Place(1, centralLayout, true, "screen", 1, 1, 2, 2);
+      place1.activate();
+
+      let place2 = new Place(2, centralLayout, true, "screen", 3, 1, 1, 2);
+      place2.activate();
+
+
+      places.push(place1);
+      places.push(place2);
+
+    } else {
+      let parent = document.querySelector(".place-3-holder");
+      let place3 = new Place(customPlace, parent, false, null, null, null, null, null)
+      place3.activate();
+      places.push(place3);
+    }
 
 
     const flightPlan = new FlightPlan(places);

@@ -22,3 +22,8 @@
 }());
 
 // Place any jQuery/helper plugins in here.
+
+function getRequestParam(name){
+   if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
+      return decodeURIComponent(name[1]);
+}

@@ -1,9 +1,10 @@
 class Place {
   // this is super tied to CSS Grid, which I don't necesssarily love at the moment, but ¯\_(ツ)_/¯ 
-  constructor(id, parent, category, row, column, spanrows, spancols) {
+  constructor(id, parent, isCentral, category, row, column, spanrows, spancols) {
     this.id = id;
     this.parent = parent;
     this.isActive = false;
+    this.isCentral = isCentral;
     this.category = category;
     this.row = row;
     this.column = column;
@@ -13,7 +14,7 @@ class Place {
     this.domWrapper.classList.add("place");
     this.domWrapper.classList.add("place-id-"+ this.id);
     this.domWrapper.setAttribute("place-id", "place-" + this.id);
-    this.preparedContent = "hi";
+    this.preparedContent = "";
     this.setContent(this.preparedContent);
   }
 
@@ -23,7 +24,6 @@ class Place {
 
   constructCSS() {
     // from row, column, spanrows, spancols, etc;
-
     this.domWrapper.style.gridRow = this.row + " / span " + this.spanrows;
     this.domWrapper.style.gridColumn = this.column + " / span " + this.spancols;
   }

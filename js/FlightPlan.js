@@ -6,6 +6,7 @@ class FlightPlan {
     this.currentPhaseIndex = 0;
     this.currentPhase;
     this.places = places;
+    this.activeDisplayPairs = [];
 
     this.buildPhases();
     this.triggerCurrentPhase();
@@ -51,6 +52,7 @@ class FlightPlan {
   }
 
   triggerCurrentPhase(){
+    this.activeDisplayPairs = [];
     //console.log("my phaseIndex is" . this.currentPhaseIndex);
     this.currentPhase = this.phaseList[this.currentPhaseIndex];
 
@@ -64,6 +66,11 @@ class FlightPlan {
       var part = display.getAttribute("part");
       var targetPlace = display.getAttribute("place");
       var placeObj = this.getPlaceByString(targetPlace);
+
+      this.activeDisplayPairs.push({place:targetPlace, part:part});
+      
+      // #TODO jsonify activeDisplayPairs and push to firebase
+
       
 
       // here, there'll be a message sent to the broker/bus to 
@@ -71,8 +78,37 @@ class FlightPlan {
       // first thought here is that anything acting as a view is simply
       // watching current phase and hitting an endpoint /place/phase pair to get content 
 
-      placeObj.setContent("Here, have part #"+part);
-      //console.log("display part # " + part + " on place # " + targetPlace);
+      // if(placeObj != undefined)
+      //  placeObj.setContent("Here, have part #"+part);
+      // //console.log("display part # " + part + " on place # " + targetPlace);
+
+      this.updateAllPlaces();
     }
+  }
+
+  updateAllPlaces() {
+   for (var i = 0; i < this.places.length; i++) {
+    this.updatePlace(this.places[i].id);
+   }
+  }
+
+  updatePlace(placeID) {
+    let content = this.getContentByPlaceForCurrentPhase(placeID);
+    var placeObj = this.getPlaceByString(placeID);
+
+
+    placeObj.setContent(content);
+  }
+
+  getContentByPlaceForCurrentPhase(placeID) {
+    //var placeObj = this.getPlaceByString(placeID);
+
+    var display = this.activeDisplayPairs.find(function (display) { return display.place == placeID; });
+    console.log(display);
+
+    if (display !== undefined)
+      return "Here, have part # " +display.part;
+    else
+      return "";
   }
 }
