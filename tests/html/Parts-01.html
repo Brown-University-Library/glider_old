@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Hello!</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <script>
+    /*
+    // Handlers for change of part state -- here is an initial thought on an approach.
+    //  I've used CSS selectors to identify Parts and Part types in order to leverage
+    //  what is familiar to web-folk
+      
+    // One particular Part instance
+    
+    Glider.Part('#zoom1').on({
+      active: () => console.log('Zoom 1 active!'),
+      inactive: () => console.log('Zoom 1 not active!')
+    });
+      
+    // All instances of the ImageZoom part type
+      
+    Glider.Part('.part-imagezoom').on({
+      active: () => console.log('A zoom instance is active!'),
+      inactive: () => console.log('A zoom instance is no longer active!')
+    });
+    */
+    </script>
+  </head>  
+  <body>
+    
+    <!-- Parts are instances of a Part type -->
+    
+    <div class="part-imagezoom">
+    </div>
+    
+    <!-- Parts can get passed different options (arguments). 
+          Maybe these are function calls, e.g. zoom:3 gets executed as part.zoom(3) -->
+
+    <div id="part1" class="part-identity" part-options="opt1:val1,opt2:val2">
+      <p>
+        This markup passed to
+      </p>
+      <p>
+        the Part
+      </p>
+      <p>
+        as part of the instantiation process
+      </p>
+      <p>
+        (it should be archived for future reference in case the DOM is modified)
+      </p>
+    </div>
+    
+    <!-- A part can have views 
+          For now, let's say that Part Views have to be defined _within_ a Part element
+    -->
+    
+    <div class="part-viewtest" id="part2">
+      <div class="part-viewtest-wall" part-options="width:123,height:345"></div>
+      <div class="part-viewtest-mobile"></div>
+    </div>
+    
+    <!-- A single part can appear in different phases; this is done by 
+        first initializing the Part in one Phase, then back-referencing from another Phase -->
+    
+    <div phase-type="seq">
+      <div id="zoom1" class="part-imagezoom"></div>
+      <div>Something else</div>
+      <div part-ref="#zoom1" class="part-imagezoom"></div> <!-- is the class necessary with the presence of a @part-ref? -->
+    </div>
+
+    <!-- By changing Part option values between part references, 
+          you can declaratively update the state of the Part -->
+    
+    <div phase-type="seq">
+      <div phase-duration="5" id="zoom2"        part-options="zoom:3" class="part-imagezoom"></div>
+      <div phase-duration="5" part-ref="#zoom2" part-options="zoom:4"></div>
+      <div phase-duration="5" part-ref="#zoom2" part-options="zoom:5"></div>
+    </div>
+    
+  </body>
+  <script>
+  
+  // FAKE PLACE
+
+  class Place {
+    constructor(name) {
+      this.name = name;
+    }
+  }
+
+  // FAKE MESSAGE BROKER
+
+  class MessageBroker {
+    
+    send(message) {
+      console.log('MESSAGE BROKER BROADCASTING:');
+      console.log(message);
+    }
+    
+    remoteCall(functionName, functionArguments) {
+      console.log('MESSAGE BROKER MAKING REMOTE PART CALL:');
+      console.log('Function name: ' + functionName);
+      console.log('Function args: ' + functionArguments);
+    }
+  }
+  
+  </script>
+  <script src="../../js/Part.js"></script>
+  <script src="../../js/Part-library.js"></script>
+  <script>
+  
+  // ============================ EXAMPLE CODE ============================
+
+  // Create a Part from a DOM node
+
+
+  // parseDomForParts(document.body);
+  // console.log(getPartViewsFromDomNode(document.getElementById('part-2')))
+
+  // Test 1 - identity part
+
+  let identityPartDomNode = document.getElementById('part1'),
+      identityPart = partFactory(identityPartDomNode),
+      pl = new Place();
+
+  identityPart.putInPlace(pl);
+
+  console.log("IDENTITY PART TEST OBJECT");
+  console.log(identityPart);
+
+  // Test 2 - Part with Views
+
+  let viewPartDomNode = document.getElementById('part2'),
+      viewPart = partFactory(viewPartDomNode),
+      pl2 = new Place();
+
+  viewPart.putInPlace(pl2); // A part doesn't have a place -- a Part View does ...
+
+  console.log("VIEW PART TEST OBJECT");
+  console.log(viewPart);
+
+  // Test 3 - Part with ?
+
+    
+  </script>
+</html>
