@@ -23,6 +23,7 @@
     <phase>
       <display part="1" place="1"></display>
       <display part="2" place="2"></display>
+      <display part="99" place="3"></display>
     </phase>
 
     <phase>
@@ -48,12 +49,52 @@
 
   </div>
 
+  <div class="place-3-holder">
+
+  </div>
+
 
 
 
   <script src="js/vendor/modernizr-3.6.0.min.js"></script>
 
   <script src="js/plugins.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.3.1/firebase.js"></script>
+
+
+<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDiG79nyWATW1tcjLsD2YY2Zr5z8qW7ZyU",
+    authDomain: "glider-flightplan-example.firebaseapp.com",
+    databaseURL: "https://glider-flightplan-example.firebaseio.com",
+    projectId: "glider-flightplan-example",
+    storageBucket: "glider-flightplan-example.appspot.com",
+    messagingSenderId: "201089278480"
+  };
+  firebase.initializeApp(config);
+
+
+    const currentPhase = firebase.database().ref().child('currentPhase');
+    currentPhase.on('value', function(snapshot) {
+      myphase = snapshot.val();
+      console.log(myphase);
+    });
+
+    const activePairs = firebase.database().ref().child('activePairs');
+    activePairs.on('value', function(snapshot) {
+      mypairs = snapshot.val();
+      console.log(mypairs);
+    });
+
+
+
+</script>
+
+
+
+
   <script src="js/Place.js"></script>
 
 

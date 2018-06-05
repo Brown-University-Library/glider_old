@@ -69,27 +69,32 @@ class FlightPlan {
 
       this.activeDisplayPairs.push({place:targetPlace, part:part});
       
-      // #TODO jsonify activeDisplayPairs and push to firebase
-
+      // #TODO jsonify activeDisplayPairs and push to Firebase
+      // set up event listener for FireBase activeDisplayPairs stuff
       
+
+
 
       // here, there'll be a message sent to the broker/bus to 
       // update global current phase (as in this object)
       // first thought here is that anything acting as a view is simply
-      // watching current phase and hitting an endpoint /place/phase pair to get content 
-
-      // if(placeObj != undefined)
-      //  placeObj.setContent("Here, have part #"+part);
-      // //console.log("display part # " + part + " on place # " + targetPlace);
-
-      this.updateAllPlaces();
+      // watching current phase and hitting an endpoint ?place=[id] to get content 
     }
+          this.updateAllPlaces();
+
   }
 
   updateAllPlaces() {
    for (var i = 0; i < this.places.length; i++) {
     this.updatePlace(this.places[i].id);
    }
+
+     firebase.database().ref().set({
+        activePairs: this.activeDisplayPairs,
+        currentPhase: this.currentPhaseIndex
+      });
+
+   console.log(this.activeDisplayPairs);
   }
 
   updatePlace(placeID) {
@@ -104,7 +109,6 @@ class FlightPlan {
     //var placeObj = this.getPlaceByString(placeID);
 
     var display = this.activeDisplayPairs.find(function (display) { return display.place == placeID; });
-    console.log(display);
 
     if (display !== undefined)
       return "Here, have part # " +display.part;

@@ -24,8 +24,10 @@ class Place {
 
   constructCSS() {
     // from row, column, spanrows, spancols, etc;
-    this.domWrapper.style.gridRow = this.row + " / span " + this.spanrows;
-    this.domWrapper.style.gridColumn = this.column + " / span " + this.spancols;
+    if (this.isCentral) {
+      this.domWrapper.style.gridRow = this.row + " / span " + this.spanrows;
+      this.domWrapper.style.gridColumn = this.column + " / span " + this.spancols;
+    }
   }
 
   activate () {
