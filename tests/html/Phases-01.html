@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Test page for Places</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+
+      // TODO: Need to load JS files
+
+  </script>
+</head>
+
+<body>
+
+  <!-- Basic seq/par designation. 
+          Heading stays throughout; One, Two, Three are each activated in turn. -->
+
+  <h1>Phase scheduling</h1>
+
+  <h2>
+    Example of Sequence
+  </h2>
+  <p>One, two, three should appear in order</p>
+  <div phase-type="seq">
+    <div>
+      One
+    </div>
+    <div>
+      Two
+    </div>
+    <div>
+      Three
+    </div>
+  </div>
+
+  <h2>
+    Example of Parallel
+  </h2>
+  <p>One, two, three should appear together</p>
+  <div phase-type="par">
+    <div>
+      One
+    </div>
+    <div>
+      Two
+    </div>
+    <div>
+      Three
+    </div>
+  </div>
+
+  <h2>
+    Example of Mixed Parallel/Sequence
+  </h2>
+  <p>Sequences [one, two, three] and [four, five, six] should run in parallel, then [seven, eight, nine]</p>
+
+  <div phase-type="seq">
+    <div phase-type="par">
+      <div phase-type="seq">
+        <div phase-duration="1s">
+          One
+        </div>
+        <div phase-duration="1s">
+          Two
+        </div>
+        <div phase-duration="2s">
+          Three
+        </div>
+      </div>
+
+      <div phase-type="seq">
+        <div phase-duration="1s">
+          Four
+        </div>
+        <div phase-duration="1s">
+          Five
+        </div>
+        <div phase-duration="2s">
+          Six
+        </div>
+      </div>
+    </div>
+
+    <div phase-type="seq">
+      <div phase-duration="1s">
+        Seven
+      </div>
+      <div phase-duration="1s">
+        Eight
+      </div>
+      <div phase-duration="2s">
+        Nine
+      </div>
+    </div>
+  </div>
+
+  <h2>Repeating</h2>
+
+  <h3>Sequence repeats indefinitely</h3>
+
+  <div phase-type="seq" phase-repeatcount="indefinite">
+    <div phase-duration="3s">
+      One
+    </div>
+    <div phase-duration="2s">
+      Two
+    </div>
+    <div phase-duration="4s">
+      Three
+    </div>
+  </div>
+
+  <h3>Sequence repeats 3 times</h3>
+
+  <div phase-type="seq" phase-repeatcount="3">
+    <div phase-duration="3s">
+      One
+    </div>
+    <div phase-duration="2s">
+      Two
+    </div>
+    <div phase-duration="4s">
+      Three
+    </div>
+  </div>
+
+  <h2>Specified start times</h2>
+
+  <h3>Order of activation according to specific start times: 
+    One, Two, Three, Four (Three de-activates after 3 seconds)
+    </h3>
+
+  <ul phase-type="par" phase-repeatcount="indefinite">
+    <li phase-begin="2s">One</li>
+    <li phase-begin="6s" phase-duration="3s">Three</li>
+    <li phase-begin="4s">Two</li>
+    <li phase-begin="8s">Four</li>
+  </ul>
+</body>
+
+</html>
