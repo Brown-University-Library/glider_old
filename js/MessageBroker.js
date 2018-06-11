@@ -28,12 +28,12 @@ class MessageBroker {
 
   subscribe(object, channel) {
 
-  		//set up an object to listen for a message to be broadcast;
+  		//set up an object to listen for a certain message to be broadcast;
 
   }
 
   sendRemote(message){
-  	this.remoteBroker.update(message);
+  	this.remoteBroker.sendMessage(message);
   }
 
 }
@@ -42,11 +42,13 @@ class RemoteMessenger {
 	constructor(provider, props) {
 		switch(provider) {
 			case "firebase":
-
 				  firebase.initializeApp(config);
-
 			break;
 		}
+	}
+
+	subscribe() {
+		
 	}
 
 	sendMessage() {
