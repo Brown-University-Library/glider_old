@@ -122,10 +122,12 @@
       place2.activate();
 
 
+
+
       places.push(place1);
       places.push(place2);
 
-    } else {
+    } else { // only bother to initialize a custom place if a client is asking for it...
       let parent = document.querySelector(".place-3-holder");
       let place3 = new Place(customPlace, parent, false, null, null, null, null, null)
       place3.activate();
