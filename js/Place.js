@@ -63,9 +63,9 @@ class GridPlace extends Place {
 
   constructCSS() {
     // from row, column, spanrows, spancols, etc;
-    if (this.isCentral) {
-      this.domWrapper.style.gridRow = this.row + " / span " + this.spanrows;
-      this.domWrapper.style.gridColumn = this.column + " / span " + this.spancols;
-    }
+    
+    this.domWrapper.style.gridRow = this.row + " / span " + this.spanrows;
+    this.domWrapper.style.gridColumn = this.column + " / span " + this.spancols;
+    
   }
 }

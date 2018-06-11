@@ -69,8 +69,7 @@ class FlightPlan {
 
       this.activeDisplayPairs.push({place:targetPlace, part:part});
       
-      // #TODO jsonify activeDisplayPairs and push to Firebase
-      // set up event listener for FireBase activeDisplayPairs stuff
+      // #TODO set up event listener for FireBase activeDisplayPairs stuff
       
 
 
@@ -80,8 +79,14 @@ class FlightPlan {
       // first thought here is that anything acting as a view is simply
       // watching current phase and hitting an endpoint ?place=[id] to get content 
     }
-          this.updateAllPlaces();
+      this.updateAllPlaces();
 
+      MessageBroker.send("phase-changed", {phaseIndex:this.currentPhaseIndex});
+
+      if (this.currentPhase.duration != undefined) {
+        let that = this;
+        setTimeout(this.currentPhase.duration, (){that.nextPhase()})
+      }
   }
 
   updateAllPlaces() {
@@ -111,8 +116,12 @@ class FlightPlan {
     var display = this.activeDisplayPairs.find(function (display) { return display.place == placeID; });
 
     if (display !== undefined)
-      return "Here, have part # " +display.part;
+      return "Here, have part # " + display.part;
     else
       return "";
+  }
+
+  publishState() {
+
   }
 }
