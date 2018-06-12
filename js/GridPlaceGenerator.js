@@ -1,8 +1,9 @@
 class GridPlaceGenerator {
 	constructor(props) {
+
 		this.rows = props.rows;
 		this.cols = props.cols;
-		
+
 		this.generatedPlaces = [];
 
 		this.wrapper = props.wrapper;
@@ -13,7 +14,7 @@ class GridPlaceGenerator {
 
 	generatePlaces() {
 		// create permutations of rows, cols, and spans. probably should use map. sue me.
-
+		
 		for (var row = 1; row <= this.rows; row++) {
 			for (var col = 1; col <= this.cols; col++) {
 				// which starting row, which starting column, how many rows to span, how many cols to span

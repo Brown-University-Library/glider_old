@@ -85,7 +85,7 @@ class FlightPlan {
 
       if (this.currentPhase.duration != undefined) {
         let that = this;
-        setTimeout(this.currentPhase.duration, (){that.nextPhase()})
+        setTimeout(this.currentPhase.duration, that.nextPhase());
       }
   }
 
