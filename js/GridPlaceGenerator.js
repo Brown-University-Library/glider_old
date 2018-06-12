@@ -6,9 +6,10 @@ class GridPlaceGenerator {
 
 		this.generatedPlaces = [];
 
-		this.wrapper = props.wrapper;
+		
 
-		this.parent = this.generateParentDOMNode(props.parentClass);
+		this.parent = document.querySelector(props.wrapper);
+
 
 	}
 
@@ -24,7 +25,8 @@ class GridPlaceGenerator {
 							row: row,
 							col: col,
 							spanRows: spanRow,
-							spanCols : spanCol
+							spanCols : spanCol,
+							parent: this.parent
 						}
 
 						let id = "r" + row + "c" + col + "h" + spanRow + "w" + spanCol;
@@ -38,16 +40,9 @@ class GridPlaceGenerator {
 		}
 	}
 
-	generateParentDOMNode(parentClass) {
-		let parentDOMNode = document.createElement('div');
-			parentDOMNode.classList.add(parentClass);
-
-		console.log(this.wrapper);
-
-		document.querySelector(this.wrapper).appendChild(parentDOMNode);
-	}
-
 	getGeneratedPlaces() {
+		console.log("Generated Places: ");
+		console.log(this.generatedPlaces);
 		return this.generatedPlaces;
 	}
 }

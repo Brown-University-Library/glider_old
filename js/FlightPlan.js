@@ -6,11 +6,15 @@ class FlightPlan {
     this.currentPhaseIndex = 0;
     this.currentPhase;
     this.places = places;
+
+    console.log("All places: ");
+    console.log(places);
     this.activeDisplayPairs = [];
 
     this.buildPhases();
     this.triggerCurrentPhase();
     this.setupKeyPressListeners();
+
   }
 
   buildPhases() {
@@ -20,7 +24,6 @@ class FlightPlan {
   }
 
   setupKeyPressListeners () {
-    // saving "this" for later in anonymous func
     let that = this; 
     document.onkeydown = function(e) {
 
@@ -53,13 +56,15 @@ class FlightPlan {
 
   triggerCurrentPhase(){
     this.activeDisplayPairs = [];
-    //console.log("my phaseIndex is" . this.currentPhaseIndex);
     this.currentPhase = this.phaseList[this.currentPhaseIndex];
 
     console.log("...starting phase # " + this.currentPhaseIndex);
 
+    MB.addMessage({msg:"phase-changed",values:{phase:this.currentPhaseIndex, sendRemote:true}});
+    MB.send();
+
     let displayList = this.currentPhase.querySelectorAll("display");
-    //console.log(displayList);
+    
 
     for (var i=0; i< displayList.length; i++) {
       var display = displayList[i];
@@ -81,7 +86,7 @@ class FlightPlan {
     }
       this.updateAllPlaces();
 
-      MessageBroker.send("phase-changed", {phaseIndex:this.currentPhaseIndex});
+      //MessageBroker.send("phase-changed", {phaseIndex:this.currentPhaseIndex});
 
       if (this.currentPhase.duration != undefined) {
         let that = this;
@@ -91,13 +96,14 @@ class FlightPlan {
 
   updateAllPlaces() {
    for (var i = 0; i < this.places.length; i++) {
+    //console.log("from updateAllPlaces, trying to update place id " +  i)
     this.updatePlace(this.places[i].id);
    }
 
-     firebase.database().ref().set({
-        activePairs: this.activeDisplayPairs,
-        currentPhase: this.currentPhaseIndex
-      });
+     // firebase.database().ref().set({
+     //    activePairs: this.activeDisplayPairs,
+     //    currentPhase: this.currentPhaseIndex
+     //  });
 
    console.log(this.activeDisplayPairs);
   }
@@ -105,20 +111,26 @@ class FlightPlan {
   updatePlace(placeID) {
     let content = this.getContentByPlaceForCurrentPhase(placeID);
     var placeObj = this.getPlaceByString(placeID);
-
+    //console.log("updating place " + placeID);
 
     placeObj.setContent(content);
+
   }
 
   getContentByPlaceForCurrentPhase(placeID) {
-    //var placeObj = this.getPlaceByString(placeID);
+    var placeObj = this.getPlaceByString(placeID);
 
     var display = this.activeDisplayPairs.find(function (display) { return display.place == placeID; });
 
-    if (display !== undefined)
+    if (display !== undefined) {
+      placeObj.activate();
       return "Here, have part # " + display.part;
-    else
+    }
+    else {
+      placeObj.deactivate();
+
       return "";
+    }
   }
 
   publishState() {

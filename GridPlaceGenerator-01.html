@@ -21,31 +21,23 @@
 <FlightPlan>
 
     <phase>
-      <display part="1" place="1"></display>
-      <display part="2" place="2"></display>
-      <display part="99" place="3"></display>
+      <display part="1" place="r1c1h1w1"></display>
+      <display part="2" place="r1c2h1w1"></display>
     </phase>
 
     <phase>
-      <display part="8" place="1"></display>
-      <display part="3" place="2"></display>
+      <display part="99" place="r1c1h1w4"></display>
     </phase>
+ 
 
-    <phase>
-      <display part="4" place="2"></display>
-      <display part="5" place="1"></display>
-    </phase>
-
-    <phase>
-      <display part="7" place="2"></display>
-    </phase>    
+    
 
   </FlightPlan>
 
 
 
 
-  <div class="central-layout">
+  <div class="central-layout display-wall-4x3">
 
   </div>
 
@@ -62,7 +54,7 @@
 
 
 
-
+  <script src="js/MessageService.js"></script>
   <script src="js/Place.js"></script>
   <script src="js/GridPlaceGenerator.js"></script>
 
@@ -70,19 +62,24 @@
   <script src="js/main.js"></script>
 
   <script>
+    const MB = new MessageService({});
 
     let gpg = new GridPlaceGenerator(
       {
         rows:3, 
         cols:4, 
         wrapper: ".central-layout", 
-        parentClass:"display-wall-4x3"
       }
     );
     
     gpg.generatePlaces();
 
-    console.log(gpg.getGeneratedPlaces());
+    
+
+    // Silly Joel...don't do places.push here.
+    let places = gpg.getGeneratedPlaces();
+
+    const flightPlan = new FlightPlan(places);
 
 
   </script>

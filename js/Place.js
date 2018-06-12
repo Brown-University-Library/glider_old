@@ -14,10 +14,13 @@ class Place {
       }
     }
 
+    this.parent = props.parent;
+
     this.setupDomWrapper();
     this.preparedContent = "";
     this.setContent(this.preparedContent);
 
+    
   }
 
   setupDomWrapper() {
@@ -29,21 +32,26 @@ class Place {
 
   setContent(content) {
     this.domWrapper.innerHTML = content;
+    
   }
 
   constructCSS() {
-    // stubby stub stub. overload.
+    // stubby stub stub. overload this plz.
   }
 
   activate () {
     this.isActive = true;
+    console.log("activating");
     this.constructCSS();
     this.parent.appendChild(this.domWrapper);
   }
 
   deactivate() {
     this.isActive = false;
-    this.parent.removeChild(this.domWrapper);
+
+    let hasChild = this.domWrapper.parentNode == this.parent;
+      if (hasChild)
+        this.parent.removeChild(this.domWrapper);
   }
 }
 
@@ -55,17 +63,18 @@ class GridPlace extends Place {
     //category, row, column, spanrows, spancols
 
     this.row = props.row;
-    this.column = props.column;
+    this.column = props.col;
     this.spanRows = props.spanRows;
     this.spanCols = props.spanCols;
+    
 
   }
 
   constructCSS() {
     // from row, column, spanrows, spancols, etc;
     
-    this.domWrapper.style.gridRow = this.row + " / span " + this.spanrows;
-    this.domWrapper.style.gridColumn = this.column + " / span " + this.spancols;
+    this.domWrapper.style.gridRow = this.row + " / span " + this.spanRows;
+    this.domWrapper.style.gridColumn = this.column + " / span " + this.spanCols;
     
   }
 }
