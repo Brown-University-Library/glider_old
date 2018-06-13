@@ -22,19 +22,28 @@
 
     <part id="part1" class="part-standard-html" part-options="opt1:val1,opt2:val2">
 
-      <div class="view-default">
-        <h1>Hello</h1>
-        <p>I am part 1</p>
+      <div class="view-default bg-red">
+        <div class="">
+          <h1>Hello</h1>
+          <p>I am part 1</p>
+        </div>
       </div>
   
     </part>
 
 
     <part id="part2" class="part-standard-html" part-options="opt1:val1,opt2:val2">
-      <div class="view-default">
-        <h1>Hi There</h1>
-        <p>I am part 2</p>
+      <div class="view-default bg-blue">
+        <div class="">
+          <h1>Hi There</h1>
+          <p>I am part 2</p>
+        </div>
       </div>
+
+      <div class="part-controller">
+        <button class="background-changer">Turn It Green</button>
+      </div>
+      
     </part>
 
 </Parts>
@@ -46,16 +55,40 @@
     </phase>
 
     <phase>
-      <display part="part2" place="r1c1h1w1"></display>
-      <display part="part1" place="r1c2h1w1"></display>
+      <display part="part2" place="r1c1h2w3"></display>
+      <display part="part1" place="r3c2h1w1"></display>
     </phase>
+
+    <phase>
+      <display part="part2" place="r1c1h3w1"></display>
+      <display part="part1" place="r1c2h3w1"></display>
+    </phase>
+
+    <phase>
+      <display part="part2" place="r1c1h3w4"></display>
+    </phase>
+
 </FlightPlan>
 
 
 
 
   <div class="central-layout display-wall-4x3">
+    <div></div>
+    <div></div>
+    <div></div>
 
+    <div></div>
+    <div></div>
+    <div></div>
+
+    <div></div>
+    <div></div>
+    <div></div>
+
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
 
 

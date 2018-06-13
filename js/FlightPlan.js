@@ -25,6 +25,7 @@ class FlightPlan {
 
   getPartView(partId) {
    let part = new GliderPart(partId);
+   console.log("Trying to get Part" + partId);
    return part.getDefaultView(); 
   }
 
@@ -136,7 +137,7 @@ class FlightPlan {
     else {
       placeObj.deactivate();
 
-      return "";
+      return document.createTextNode("");
     }
   }
 

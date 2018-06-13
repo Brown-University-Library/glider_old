@@ -105,6 +105,17 @@ Parts {
   display:none;
 }
 
+.bg-red {
+  background-color:red;
+}
+
+.bg-blue {
+  background-color:blue;
+}
+
+h1 {
+  margin:0px;
+}
 
 
 .display-wall-4x3 {
@@ -115,6 +126,10 @@ Parts {
   grid-template-rows: repeat(3, 1fr);
   grid-gap: 0px;
   height:100vh;
+}
+
+.display-wall-4x3>div{
+  border:1px dashed black;
 }
 
 

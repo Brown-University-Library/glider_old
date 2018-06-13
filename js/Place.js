@@ -17,7 +17,7 @@ class Place {
     this.parent = props.parent;
 
     this.setupDomWrapper();
-    this.preparedContent = "";
+    this.preparedContent = document.createTextNode("");
     this.setContent(this.preparedContent);
 
     
@@ -31,8 +31,8 @@ class Place {
   }
 
   setContent(content) {
-    this.domWrapper.innerHTML = content;
-    
+    this.domWrapper.innerHTML = "";
+    this.domWrapper.appendChild(content);
   }
 
   constructCSS() {
@@ -48,10 +48,13 @@ class Place {
 
   deactivate() {
     this.isActive = false;
-
     let hasChild = this.domWrapper.parentNode == this.parent;
-      if (hasChild)
+      if (hasChild) {
+            console.log("DEACTIVATING");
+
+        console.log("deactivating");
         this.parent.removeChild(this.domWrapper);
+      }
   }
 }
 

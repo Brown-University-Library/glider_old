@@ -8,6 +8,11 @@ class GliderPart {
 	}
 
 	getDefaultView() {
-		return this.defaultViewElement.innerHTML;
+		//console.log(this.id);
+		this.defaultViewElement.style.height="100%";
+		this.defaultViewElement.style.width="100%";
+		let clone = this.defaultViewElement.cloneNode(true);
+
+		return clone;
 	}
 }
