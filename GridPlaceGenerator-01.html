@@ -18,21 +18,38 @@
 
 <body>
 
+<Parts>
+
+    <part id="part1" class="part-standard-html" part-options="opt1:val1,opt2:val2">
+
+      <div class="view-default">
+        <h1>Hello</h1>
+        <p>I am part 1</p>
+      </div>
+  
+    </part>
+
+
+    <part id="part2" class="part-standard-html" part-options="opt1:val1,opt2:val2">
+      <div class="view-default">
+        <h1>Hi There</h1>
+        <p>I am part 2</p>
+      </div>
+    </part>
+
+</Parts>
+
 <FlightPlan>
-
     <phase>
-      <display part="1" place="r1c1h1w1"></display>
-      <display part="2" place="r1c2h1w1"></display>
+      <display part="part1" place="r1c1h1w1"></display>
+      <display part="part2" place="r1c2h1w1"></display>
     </phase>
 
     <phase>
-      <display part="99" place="r1c1h1w4"></display>
+      <display part="part2" place="r1c1h1w1"></display>
+      <display part="part1" place="r1c2h1w1"></display>
     </phase>
- 
-
-    
-
-  </FlightPlan>
+</FlightPlan>
 
 
 
@@ -55,6 +72,7 @@
 
 
   <script src="js/MessageService.js"></script>
+  <script src="js/GliderPart.js"></script>
   <script src="js/Place.js"></script>
   <script src="js/GridPlaceGenerator.js"></script>
 

@@ -45,7 +45,7 @@ class MessageService {
 }
 
 class RemoteMessenger {
-	constructor(provider, props) {
+	constructor(provider, config) {
 		switch(provider) {
 			case "firebase":
 				  //firebase.initializeApp(config);

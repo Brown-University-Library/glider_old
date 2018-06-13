@@ -97,8 +97,12 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
-phase {
+FlightPlan {
     display:none;
+}
+
+Parts {
+  display:none;
 }
 
 

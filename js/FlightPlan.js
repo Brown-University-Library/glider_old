@@ -23,6 +23,11 @@ class FlightPlan {
   	this.phaseList = document.querySelectorAll("phase");
   }
 
+  getPartView(partId) {
+   let part = new GliderPart(partId);
+   return part.getDefaultView(); 
+  }
+
   setupKeyPressListeners () {
     let that = this; 
     document.onkeydown = function(e) {
@@ -122,9 +127,11 @@ class FlightPlan {
 
     var display = this.activeDisplayPairs.find(function (display) { return display.place == placeID; });
 
+    // if the place is supposed to have a part on it
     if (display !== undefined) {
       placeObj.activate();
-      return "Here, have part # " + display.part;
+      // grab part {display.part}, fire it up, and getView();
+      return this.getPartView(display.part);
     }
     else {
       placeObj.deactivate();
