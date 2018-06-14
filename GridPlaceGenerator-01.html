@@ -43,7 +43,7 @@
       <div class="part-controller">
         <button class="background-changer">Turn It Green</button>
       </div>
-      
+
     </part>
 
 </Parts>
@@ -72,27 +72,16 @@
 
 
 
+<!-- The "display-wall-4x3" class is way to set up a layout like the DSL wall. -->
+  <div class="place central-layout display-wall-4x3">
 
-  <div class="central-layout display-wall-4x3">
-    <div></div>
-    <div></div>
-    <div></div>
-
-    <div></div>
-    <div></div>
-    <div></div>
-
-    <div></div>
-    <div></div>
-    <div></div>
-
-    <div></div>
-    <div></div>
-    <div></div>
   </div>
 
+  <!-- This is a place that isn't rendered unless we've hit the page looking for a Custom Place. -->
 
+  <div class="place ad-hoc some-identifier">
 
+  </div>
 
 
   <script src="js/vendor/modernizr-3.6.0.min.js"></script>
@@ -113,8 +102,15 @@
   <script src="js/main.js"></script>
 
   <script>
+
+    let customPlace = getRequestParam("place");
+
+    // Should move this to the FlightPlan class
     const MB = new MessageService({});
 
+    // If you're doing a Display Wall type of thing, give this a shot!
+    // If we don't want our users to write any JS we can write something to
+    //    consume markup to initiate the Places
     let gpg = new GridPlaceGenerator(
       {
         rows:3, 
@@ -124,8 +120,6 @@
     );
     
     gpg.generatePlaces();
-
-    
 
     // Silly Joel...don't do places.push here.
     let places = gpg.getGeneratedPlaces();
