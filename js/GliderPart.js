@@ -11,6 +11,8 @@ class GliderPart {
 		//console.log(this.id);
 		this.defaultViewElement.style.height="100%";
 		this.defaultViewElement.style.width="100%";
+
+		// Ummm...
 		let clone = this.defaultViewElement.cloneNode(true);
 
 		return clone;

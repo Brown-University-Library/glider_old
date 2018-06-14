@@ -7,8 +7,8 @@ class FlightPlan {
     this.currentPhase;
     this.places = places;
 
-    console.log("All places: ");
-    console.log(places);
+    // console.log("All places: ");
+    // console.log(places);
     this.activeDisplayPairs = [];
 
     this.buildPhases();
@@ -18,14 +18,14 @@ class FlightPlan {
   }
 
   buildPhases() {
-    console.log("building phases...");
+    //console.log("building phases...");
     // using xml syntax right now for ease, #todo convert to preferred markup
   	this.phaseList = document.querySelectorAll("phase");
   }
 
   getPartView(partId) {
    let part = new GliderPart(partId);
-   console.log("Trying to get Part" + partId);
+   //console.log("Trying to get Part" + partId);
    return part.getDefaultView(); 
   }
 
@@ -64,7 +64,7 @@ class FlightPlan {
     this.activeDisplayPairs = [];
     this.currentPhase = this.phaseList[this.currentPhaseIndex];
 
-    console.log("...starting phase # " + this.currentPhaseIndex);
+    //console.log("...starting phase # " + this.currentPhaseIndex);
 
     MB.addMessage({msg:"phase-changed",values:{phase:this.currentPhaseIndex, sendRemote:true}});
     MB.send();
