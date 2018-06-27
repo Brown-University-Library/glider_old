@@ -68,15 +68,29 @@ export default {
 
   mounted() {
     let that = this;
-    this.phases = this.$refs.phases.$children;
-    this.activePhaseComponent = this.phases[this.activePhase];
-    this.activeDisplays = this.activePhaseComponent.$children; 
-    let display = this.activeDisplays[0];
-    console.log("Display " + display.part + " on " + display.place);
-    this.$refs[display.part].updateState("active");
 
+    // should do this first
     this.activePlace = this.$refs[that.placeId];
     this.activePlace.state = "active";
+
+    // grab all <Phase> components
+    this.phases = this.$refs.phases.$children;
+
+    // grab the active phase per this.activePhase
+    this.activePhaseComponent = this.phases[this.activePhase];
+
+    // get each active <Display> in the current phase
+    this.activeDisplays = this.activePhaseComponent.$children; 
+
+
+    // just testing, using the 0th display to test
+    let display = this.activeDisplays[0];
+    console.log("Display " + display.part + " on " + display.place);
+
+    // change Part's state to active
+    this.$refs[display.part].updateState("active");
+
+
     // just go ahead and give the main layout the class that can match the place id? CSS to match?
     this.$refs.flightplan.classList.add(this.activePlace.id);
 
