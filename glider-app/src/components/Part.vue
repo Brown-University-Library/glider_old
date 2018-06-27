@@ -1,6 +1,6 @@
 <template>
-  <div v-if="state=='active'" :class = "['place', 
-                  'place-' + this.id, 
+  <div v-if="state=='active'" :class = "['part', 
+                  'part-' + this.id, 
                   'state-' + state]">
     <slot></slot>
   </div>
@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: 'Place',
+  name: 'Part',
   props: {
     id: String,
     state:{
