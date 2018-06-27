@@ -1,5 +1,5 @@
 <template>
-	<div class="flightplan">
+	<div ref="flightplan" class="flightplan">
 		<PartsList ref="parts">
 	    <Part ref="part1" id="part1" state="inactive">
 	      <h1>Hello! I'm Part1</h1>
@@ -14,7 +14,9 @@
 
     <PlaceList ref="places">
     	<div class="places">
-        <Place ref="DSLWall" id="DSLWall" type="grid"></Place>
+        <Place ref="DSLWall" id="DSLWall" type="grid">
+          <KeyboardController></KeyboardController>
+        </Place>
     	</div>
     </PlaceList>
 
@@ -27,7 +29,6 @@
         <Display part="part2" place="place1"></Display>
       </Phase>
     </PhaseList>    
-
 	</div>
 </template>
 
@@ -40,6 +41,8 @@ import Part from '@/components/Part.vue'
 import Place from '@/components/Place.vue'
 import Phase from '@/components/Phase.vue'
 import Display from '@/components/Display.vue'
+import KeyboardController from '@/components/KeyboardController.vue'
+
 
 
 export default {
@@ -53,7 +56,8 @@ export default {
     PartsList,
     PhaseList,
     DisplayList,
-    PlaceList
+    PlaceList,
+    KeyboardController
   },
 
   data() {
@@ -72,8 +76,9 @@ export default {
     this.$refs[display.part].updateState("active");
 
     this.activePlace = this.$refs[that.placeId];
-
     this.activePlace.state = "active";
+    // just go ahead and give the main layout the class that can match the place id? CSS to match?
+    this.$refs.flightplan.classList.add(this.activePlace.id);
 
   }
 }
