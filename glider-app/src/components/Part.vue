@@ -10,16 +10,18 @@
 export default {
   name: 'Part',
   props: {
-    id: String,
-    state:{
-      type: String,
-      default:"inactive"
-    }
+    id: String
   },
 
   data() {
     return {
+      state: "inactive"
+    }
+  },
 
+  methods: {
+    updateState(state) {
+      this.state=state;
     }
   }
 }

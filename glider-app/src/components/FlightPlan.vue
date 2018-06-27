@@ -1,12 +1,11 @@
 <template>
 	<div class="flightplan">
-    <h1>Showing {{placeId}} </h1>
 		<PartsList ref="parts">
-	    <Part id="part1" state="inactive">
+	    <Part ref="part1" id="part1" state="inactive">
 	      <h1>Hello! I'm Part1</h1>
 	    </Part>
 
-	    <Part id="part2" state="inactive">
+	    <Part ref="part2" id="part2" state="inactive">
 	      <h1>Party Party Part2</h1>
     	</Part>
 
@@ -15,13 +14,13 @@
 
     <PlaceList ref="places">
     	<div class="places">
-        <Place id="place1" class="brown-dsl" type="grid"></Place>
+        <Place ref="DSLWall" id="DSLWall" type="grid"></Place>
     	</div>
     </PlaceList>
 
     <PhaseList ref="phases">
       <Phase>
-        <Display part="part1" place="place1"></Display>
+        <Display part="part1" place="DSLWall"></Display>
       </Phase>
 
       <Phase>
@@ -64,11 +63,17 @@ export default {
   },
 
   mounted() {
+    let that = this;
     this.phases = this.$refs.phases.$children;
     this.activePhaseComponent = this.phases[this.activePhase];
     this.activeDisplays = this.activePhaseComponent.$children; 
     let display = this.activeDisplays[0];
     console.log("Display " + display.part + " on " + display.place);
+    this.$refs[display.part].updateState("active");
+
+    this.activePlace = this.$refs[that.placeId];
+
+    this.activePlace.state = "active";
 
   }
 }
