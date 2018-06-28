@@ -10,6 +10,22 @@ export default {
   props: {
     id: String,
     state:String
+  }, 
+
+  data() {
+  	// id: Number,
+  	// state: String
+  },
+
+  methods: {
+  	start(){
+  		// kicks off the phase
+  	},
+
+  	goTo(phaseId) {
+  		// iniates transition to specified subphase?
+  	}
+
   }
 }
 </script>

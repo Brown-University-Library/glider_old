@@ -1,5 +1,6 @@
 <template>
 	<div ref="flightplan" class="flightplan">
+
 		<PartsList ref="parts">
 	    <Part ref="part1" id="part1" state="inactive">
 	      <h1>Hello! I'm Part1</h1>
@@ -28,11 +29,13 @@
       <Phase>
         <Display part="part2" place="place1"></Display>
       </Phase>
-    </PhaseList>    
+    </PhaseList>   
+
 	</div>
 </template>
 
 <script>
+
 import PartsList from '@/components/PartsList.vue'
 import PhaseList from '@/components/PhaseList.vue'
 import DisplayList from '@/components/DisplayList.vue'
@@ -42,7 +45,6 @@ import Place from '@/components/Place.vue'
 import Phase from '@/components/Phase.vue'
 import Display from '@/components/Display.vue'
 import KeyboardController from '@/components/KeyboardController.vue'
-
 
 
 export default {
@@ -83,7 +85,7 @@ export default {
     this.activeDisplays = this.activePhaseComponent.$children; 
 
 
-    // just testing, using the 0th display to test
+    // just testing, using the 0th Display to test
     let display = this.activeDisplays[0];
     console.log("Display " + display.part + " on " + display.place);
 
