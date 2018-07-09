@@ -2,7 +2,7 @@
   <div v-if="state=='active'" :class = "['place', 
                   'place-' + this.id, 
                   'state-' + state]">
-                  <h2>{{this.id}} is Active</h2>
+                  <h2>You are looking at {{this.id}}</h2>
     <slot></slot>
   </div>
 </template>
