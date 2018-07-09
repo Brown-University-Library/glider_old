@@ -12,12 +12,24 @@ export default {
   name: 'Place',
   props: {
     id: String,
-    type: String
+    type: String,
+    rows: String,
+    columns: String
   },
 
   data() {
     return {
       state:"inactive"
+    }
+  },
+
+  mounted(){
+    switch(this.type) {
+      case "grid":
+        // set up styles for the grid based on columns and rows
+        console.log(this.rows);
+        console.log(this.columns);
+      break;
     }
   }
 }

@@ -13,8 +13,10 @@ export default {
   }, 
 
   data() {
+    return {
   	// id: Number,
   	// state: String
+    }
   },
 
   methods: {

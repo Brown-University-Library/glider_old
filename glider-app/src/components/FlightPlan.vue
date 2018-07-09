@@ -1,6 +1,5 @@
 <template>
 	<div ref="flightplan" class="flightplan">
-
 		<PartsList ref="parts">
 	    <Part ref="part1" id="part1" state="inactive">
 	      <h1>Hello! I'm Part1</h1>
@@ -15,7 +14,7 @@
 
     <PlaceList ref="places">
     	<div class="places">
-        <Place ref="DSLWall" id="DSLWall" type="grid">
+        <Place ref="DSLWall" id="DSLWall" type="grid" rows="3" columns="4">
           <KeyboardController></KeyboardController>
         </Place>
     	</div>
