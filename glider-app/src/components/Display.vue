@@ -17,6 +17,7 @@ export default {
 
 		part:Part,
 		place: Place,
+		region: String
 	}
 }
 </script>

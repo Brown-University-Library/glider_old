@@ -7,7 +7,7 @@ Vue.use(Vuex)
 
 const state = {
     currentPhase:0,
-    activeParts: []
+    
 }
 
 const getters = {
@@ -27,7 +27,6 @@ const mutations = {
 const actions = {
     phaseActive(context, data) {
         context.commit('phaseActive', data)
-
     }
 }
 

@@ -2,7 +2,6 @@
   <div v-if="state=='active'" :class = "['place', 
                   'place-' + this.id, 
                   'state-' + state]">
-                  <h2>You are looking at {{this.id}}</h2>
     <slot></slot>
   </div>
 </template>
@@ -11,7 +10,9 @@
 export default {
   name: 'Place',
   props: {
+    // or "Role"
     id: String,
+    // or "Layout"
     type: String,
     rows: String,
     columns: String
@@ -23,14 +24,23 @@ export default {
     }
   },
 
-  mounted(){
-    switch(this.type) {
-      case "grid":
-        // set up styles for the grid based on columns and rows
-        console.log(this.rows);
-        console.log(this.columns);
-      break;
+  methods: {
+    setupLayout() {
+      switch(this.type) {
+        case "grid":
+
+        break;
+
+        default:
+
+        break; 
+
+      }
     }
+  },
+
+  mounted(){
+    this.setupLayout();
   }
 }
 </script>

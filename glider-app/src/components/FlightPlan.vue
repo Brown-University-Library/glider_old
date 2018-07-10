@@ -1,17 +1,21 @@
 <template>
 	<div ref="flightplan" class="flightplan">
-    <h1>Active Phase: {{activePhase}}</h1>
+    <h1 style="display:none;">{{activePhase}}</h1>
 		<PartsList ref="parts">
-	    <Part ref="part1" id="part1" state="inactive">
-	      <h1>Hello! I'm Part1</h1>
+	    <Part ref="introSlide" id="introSlide" state="inactive">
+        <PartView ref="introSlide.default" id="introSlide.default" state="inactive">
+	       <h1>This is my intro "slide."</h1>
+          <h2>Some content</h2>
+          <p>Even more content! Wow!</p>
+        </Partview>
+        <PartView ref="introSlide.controller" id="introSlide.controller" state="inactive">
+          <h1>I'm the controllyguy for IntroSlide</h1>
+        </PartView>
 	    </Part>
 
 	    <Part ref="part2" id="part2" state="inactive">
-	      <h1>Party Party Part2</h1>
-        <h2>Weee!</h2>
+	      <h1>Hello! I'm another piece of content.</h1>
     	</Part>
-
-    	<Part type="ImageZoom" id="imagezoom1" zoomLevel="1" state="inactive" asset="http://placekitten.com/400/400"></Part>
     </PartsList>
 
     <PlaceList ref="places">
@@ -21,20 +25,27 @@
         </Place>
 
         <Place ref="Mobile" id="Mobile">
-          <KeyboardController></KeyboardController>
+          
+
         </Place>
     	</div>
     </PlaceList>
 
     <PhaseList ref="phases">
       <Phase>
-        <Display part="part1" place="DSLWall"></Display>
-        <Display part="part2" place="mobile"></Display>
+        <Display part="introSlide.default" place="DSLWall" region="r1c1w2h1"></Display>
+        <Display part="introSlide.controller" place="Mobile"></Display>
+        <Display part="part2" place="DSLWall" region="r2c1w1h1"></Display>
       </Phase>
 
       <Phase>
-        <Display part="part2" place="DSLWall"></Display>
+        <Display part="part2" place="DSLWall" region="r3c1w1h1"></Display>
       </Phase>
+
+      <Phase>
+        <Display part="part2" place="Mobile"></Display>
+      </Phase>
+
     </PhaseList>   
 
 	</div>
@@ -47,6 +58,7 @@ import PhaseList from '@/components/PhaseList.vue'
 import DisplayList from '@/components/DisplayList.vue'
 import PlaceList from '@/components/PlaceList.vue'
 import Part from '@/components/Part.vue'
+import PartView from '@/components/PartView.vue'
 import Place from '@/components/Place.vue'
 import Phase from '@/components/Phase.vue'
 import Display from '@/components/Display.vue'
@@ -66,6 +78,7 @@ export default {
     PhaseList,
     DisplayList,
     PlaceList,
+    PartView,
     KeyboardController
   },
 
@@ -86,29 +99,41 @@ export default {
       this.allParts.forEach(function (part) {
         part.updateState("inactive");
       });
+    },
+
+    setPPP: function() {
+
+      // ready for repaint
+      this.killAllParts();
+      // grab the active phase per this.activePhase
+      this.activePhaseComponent = this.phases[this.activePhase];
+
+      // get each active <Display> in the current phase
+      this.activeDisplays = this.activePhaseComponent.$children; 
+      // just testing, using the 0th Display to test
+      let displays = this.activeDisplays;
+      
+      for(let display in displays) {
+        // change Part's state to active and parse its region if applicable
+        let curdis = displays[display];
+
+
+        if(curdis.place == this.activePlace.id.toLowerCase() || curdis.place == this.activePlace.id) {
+          let distarget = curdis.part;
+          let parent = curdis.part.split(".")[0];
+
+          
+          this.$refs[parent].activate(distarget);
+
+          if (curdis.region !== "")
+            this.$refs[curdis.part.split(".")[0]].putInRegion(curdis.region);
+        }
+      }
     }
   },
 
   updated() {
-    console.log("updated!");
-    this.killAllParts();
-    // grab the active phase per this.activePhase
-    this.activePhaseComponent = this.phases[this.activePhase];
-
-    // get each active <Display> in the current phase
-    this.activeDisplays = this.activePhaseComponent.$children; 
-    // just testing, using the 0th Display to test
-    let displays = this.activeDisplays;
-    
-    for(let display in displays) {
-      // change Part's state to active
-      if(displays[display].place == this.activePlace.id.toLowerCase() || displays[display].place == this.activePlace.id)
-        this.$refs[displays[display].part].updateState("active");
-    }
-
-
-    // just go ahead and give the main layout the class that can match the place id? CSS to match?
-    this.$refs.flightplan.classList.add(this.activePlace.id);
+    this.setPPP();
   },
 
   mounted() {
@@ -126,44 +151,29 @@ export default {
     // grab the active phase per this.activePhase
     this.activePhaseComponent = this.phases[this.activePhase];
 
-    // get each active <Display> in the current phase
-    this.activeDisplays = this.activePhaseComponent.$children; 
-    
-    // just testing, using the 0th Display to test
-    let displays = this.activeDisplays;
-    
-    for(let display in displays) {
-      // change Part's state to active
-      if(displays[display].place == this.activePlace.id.toLowerCase() || displays[display].place == this.activePlace.id)
-        this.$refs[displays[display].part].updateState("active");
-    }
+    this.setPPP();
 
 
     // just go ahead and give the main layout the class that can match the place id? CSS to match?
-    this.$refs.flightplan.classList.add(this.activePlace.id);
+    document.querySelector('.partsList').classList.add(this.activePlace.id);
 
 
-  const FBConfig = {
-      apiKey: "AIzaSyDiG79nyWATW1tcjLsD2YY2Zr5z8qW7ZyU",
-      authDomain: "glider-flightplan-example.firebaseapp.com",
-      databaseURL: "https://glider-flightplan-example.firebaseio.com",
-      projectId: "glider-flightplan-example",
-      storageBucket: "glider-flightplan-example.appspot.com",
-      messagingSenderId: "201089278480"
-    }
-    firebase.initializeApp(FBConfig);
+    const FBConfig = {
+        apiKey: "AIzaSyDiG79nyWATW1tcjLsD2YY2Zr5z8qW7ZyU",
+        authDomain: "glider-flightplan-example.firebaseapp.com",
+        databaseURL: "https://glider-flightplan-example.firebaseio.com",
+        projectId: "glider-flightplan-example",
+        storageBucket: "glider-flightplan-example.appspot.com",
+        messagingSenderId: "201089278480"
+      }
+      firebase.initializeApp(FBConfig);
 
-  const remotePhase = firebase.database().ref().child('phase');
-  remotePhase.on('value', function(snapshot) {
-        let myphase = snapshot.val();
-        that.$store.commit("phaseActive", myphase);
-  });
-
-
-
-
+    const remotePhase = firebase.database().ref().child('phase');
+    remotePhase.on('value', function(snapshot) {
+          let myphase = snapshot.val();
+          that.$store.commit("phaseActive", myphase);
+    });
   }
-
 }
 </script>
 

@@ -1,6 +1,6 @@
 <template>
-  <div v-bind:style="styleObject" v-if="state=='active'" :class = "['part', 
-                  'part-' + this.id, 
+  <div v-bind:style="styleObject" v-if="state=='active'" :class = "['partView', 
+                  'partView-' + this.id, 
                   'state-' + state]">
     <slot></slot>
   </div>
@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: 'Part',
+  name: 'PartView',
   props: {
     id: String
   },
@@ -18,39 +18,17 @@ export default {
       state: "inactive",
       styleObject: {},
       attrs:{},
-      views:[],
-      activeView: null
+      displays:[]
     }
   },
 
   updated() {
-    this.populateViews();
-    let v = this.getViewById(this.activeView);
-    v.updateState("active");
-  },
 
-  mounted() {
-   //this.populateViews();
   },
-
+  
   methods: {
-
-    populateViews()  {
-      this.views = this.$children;
-    },
-
-    getViewById(id) {
-      let v = this.views.find(function (view) { return view.id == id; });
-      return v;
-    },
-
     updateState(state) {
       this.state = state;
-    },
-
-    activate(view){
-      this.state = "active";
-      this.activeView = view;
     },
 
     getParsedRegionObject(region) {
