@@ -125,8 +125,10 @@ export default {
           
           this.$refs[parent].activate(distarget);
 
-          if (curdis.region !== "")
+          if (curdis.region !== undefined) {
+            console.log(curdis.region + " is the region brah");
             this.$refs[curdis.part.split(".")[0]].putInRegion(curdis.region);
+          }
         }
       }
     }
