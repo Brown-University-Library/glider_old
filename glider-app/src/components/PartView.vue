@@ -17,7 +17,7 @@ export default {
     return {
       state: "inactive",
       styleObject: {},
-      attrs:{},
+      shared:{},
       displays:[]
     }
   },

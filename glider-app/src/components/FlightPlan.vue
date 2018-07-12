@@ -14,7 +14,9 @@
 	    </Part>
 
 	    <Part ref="part2" id="part2" state="inactive">
-	      <h1>Hello! I'm another piece of content.</h1>
+	      <PartView ref="part2.default" id="part2.default" state="inactive">
+          <h1>Hello! I'm another piece of content.</h1>
+        </PartView>
     	</Part>
     </PartsList>
 
@@ -35,15 +37,15 @@
       <Phase>
         <Display part="introSlide.default" place="DSLWall" region="r1c1w2h1"></Display>
         <Display part="introSlide.controller" place="Mobile"></Display>
-        <Display part="part2" place="DSLWall" region="r2c1w1h1"></Display>
+        <Display part="part2.default" place="DSLWall" region="r2c1w1h1"></Display>
       </Phase>
 
       <Phase>
-        <Display part="part2" place="DSLWall" region="r3c1w1h1"></Display>
+        <Display part="part2.default" place="DSLWall" region="r3c1w1h1"></Display>
       </Phase>
 
       <Phase>
-        <Display part="part2" place="Mobile"></Display>
+        <Display part="part2.default" place="Mobile"></Display>
       </Phase>
 
     </PhaseList>   

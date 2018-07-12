@@ -17,16 +17,23 @@ export default {
     return {
       state: "inactive",
       styleObject: {},
-      attrs:{},
+      // mutable attributes (shared stuff)
+      shared:{},
       views:[],
       activeView: null
     }
   },
 
+  computed: {
+    // state: () => this.$store.getters.getPartState(this.id),
+    // styleObject: () => this.$store.getters.getPartStyle(this.id),
+    // views: () => this.$store.getters.getPartViews(this.id)
+  },
+
   updated() {
     this.populateViews();
     let v = this.getViewById(this.activeView);
-    v.updateState("active");
+    if(v !== undefined) v.updateState("active");
   },
 
   mounted() {
@@ -83,8 +90,8 @@ export default {
       }
     }, 
 
-    updateAttribute(attr, val) {
-      this.attrs[attr] = val;
+    updateSharedAttribute(attr, val) {
+      this.shared[attr] = val;
     }
   }
 }

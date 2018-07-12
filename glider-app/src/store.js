@@ -7,12 +7,16 @@ Vue.use(Vuex)
 
 const state = {
     currentPhase:0,
-    
+    parts : []
 }
 
 const getters = {
     getCurrentPhase: state => {
         return state.currentPhase
+    },
+
+    getPartState(part) {
+        return state.parts[part].status;
     }
 }
 
