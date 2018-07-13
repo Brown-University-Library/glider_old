@@ -2,14 +2,14 @@
 	<div ref="flightplan" class="flightplan">
     <h1 style="display:none;">{{activePhase}}</h1>
 		<PartsList ref="parts">
-	    <Part ref="introSlide" id="introSlide" state="inactive">
+	    <Part ref="introSlide" id="introSlide" state="inactive" shared='{ "bgColor":"red", "fontSize:":30}'>
         <PartView ref="introSlide.default" id="introSlide.default" state="inactive">
 	       <h1>This is my intro "slide."</h1>
-          <h2>Some content</h2>
           <p>Even more content! Wow!</p>
         </Partview>
         <PartView ref="introSlide.controller" id="introSlide.controller" state="inactive">
           <h1>I'm the controllyguy for IntroSlide</h1>
+          <button v-on:click = "updateAttr('introSlide','bgColor', 'blue')">Do The Thing</button>
         </PartView>
 	    </Part>
 
@@ -37,7 +37,6 @@
       <Phase>
         <Display part="introSlide.default" place="DSLWall" region="r1c1w2h1"></Display>
         <Display part="introSlide.controller" place="Mobile"></Display>
-        <Display part="part2.default" place="DSLWall" region="r2c1w1h1"></Display>
       </Phase>
 
       <Phase>
@@ -103,6 +102,19 @@ export default {
       });
     },
 
+    updateAttr : function(ref, attr, val) {
+      let that = this;
+      let thing = {
+        id: ref,
+        attr: {
+          name: attr,
+          val: val
+        }
+      }
+      this.$store.commit("updatePartAttr", thing);
+
+    },
+
     setPPP: function() {
 
       // ready for repaint
@@ -128,7 +140,7 @@ export default {
           this.$refs[parent].activate(distarget);
 
           if (curdis.region !== undefined) {
-            console.log(curdis.region + " is the region brah");
+            console.log(curdis.region + " is the active region (if applicable)");
             this.$refs[curdis.part.split(".")[0]].putInRegion(curdis.region);
           }
         }
@@ -141,9 +153,8 @@ export default {
   },
 
   mounted() {
-
     let that = this;
-
+    
     this.allParts = this.$refs['parts'].$children;
 
     // should do this first
@@ -161,22 +172,6 @@ export default {
     // just go ahead and give the main layout the class that can match the place id? CSS to match?
     document.querySelector('.partsList').classList.add(this.activePlace.id);
 
-
-    const FBConfig = {
-        apiKey: "AIzaSyDiG79nyWATW1tcjLsD2YY2Zr5z8qW7ZyU",
-        authDomain: "glider-flightplan-example.firebaseapp.com",
-        databaseURL: "https://glider-flightplan-example.firebaseio.com",
-        projectId: "glider-flightplan-example",
-        storageBucket: "glider-flightplan-example.appspot.com",
-        messagingSenderId: "201089278480"
-      }
-      firebase.initializeApp(FBConfig);
-
-    const remotePhase = firebase.database().ref().child('phase');
-    remotePhase.on('value', function(snapshot) {
-          let myphase = snapshot.val();
-          that.$store.commit("phaseActive", myphase);
-    });
   }
 }
 </script>

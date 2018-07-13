@@ -2,42 +2,73 @@
   <div v-bind:style="styleObject" v-if="state=='active'" :class = "['part', 
                   'part-' + this.id, 
                   'state-' + state]">
+    <h2>Shared attribute bgColor: {{this.attrs.bgColor}}</h2>
+
     <slot></slot>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'Part',
+  inherit: true,
   props: {
-    id: String
+    id: String,
+    // comes from the def in markup
+    shared:String     
   },
 
   data() {
     return {
       state: "inactive",
+      views:[],
       styleObject: {},
       // mutable attributes (shared stuff)
-      shared:{},
-      views:[],
+      
       activeView: null
     }
   },
 
   computed: {
-    // state: () => this.$store.getters.getPartState(this.id),
-    // styleObject: () => this.$store.getters.getPartStyle(this.id),
-    // views: () => this.$store.getters.getPartViews(this.id)
+    ...mapGetters({
+        partAttrs: 'getSharedPartAttributes'
+    }),
+
+    attrs: (ctx) => {
+      return ctx.partAttrs(ctx.id)
+    }
+
   },
 
   updated() {
     this.populateViews();
     let v = this.getViewById(this.activeView);
     if(v !== undefined) v.updateState("active");
+    console.log("updateyguy");
+
+    this.styleObject.backgroundColor = this.attrs.bgColor;
+
+    console.log(this.styleObject);
+
   },
 
   mounted() {
-   //this.populateViews();
+    console.log("shared.... " + this.shared);
+    let that = this;
+
+    if(that.shared != undefined) {
+      let thing = {
+        id:that.id,
+        attrs: JSON.parse(that.shared)
+      };
+      this.$store.commit('registerPartAttrs', thing);
+      
+      this.styleObject.backgroundColor = this.attrs.bgColor;
+      
+
+    }
+
   },
 
   methods: {
@@ -58,6 +89,7 @@ export default {
     activate(view){
       this.state = "active";
       this.activeView = view;
+      //this.activeView.activate();
     },
 
     getParsedRegionObject(region) {
@@ -84,14 +116,13 @@ export default {
       //parse the region
       let parsedRegion = this.getParsedRegionObject(region);
 
-      this.styleObject = {
-        gridRow:parsedRegion.gridRow,
-        gridColumn:parsedRegion.gridColumn
-      }
+      this.styleObject['gridRow'] = parsedRegion.gridRow;
+      this.styleObject['gridColumn'] = parsedRegion.gridColumn
+      
     }, 
 
     updateSharedAttribute(attr, val) {
-      this.shared[attr] = val;
+      this.attrs[attr] = val;
     }
   }
 }

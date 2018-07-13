@@ -7,8 +7,11 @@
 </template>
 
 <script>
+import Part from '@/components/Part.vue'
+
 export default {
   name: 'PartView',
+  inherit: true,
   props: {
     id: String
   },
@@ -16,19 +19,25 @@ export default {
   data() {
     return {
       state: "inactive",
-      styleObject: {},
-      shared:{},
-      displays:[]
+      styleObject: {}
     }
   },
 
   updated() {
 
   },
+
+  mounted() {
+
+  },
   
   methods: {
     updateState(state) {
       this.state = state;
+    },
+
+    activate() {
+      console.log("partView activating");
     },
 
     getParsedRegionObject(region) {
@@ -59,10 +68,6 @@ export default {
         gridRow:parsedRegion.gridRow,
         gridColumn:parsedRegion.gridColumn
       }
-    }, 
-
-    updateAttribute(attr, val) {
-      this.attrs[attr] = val;
     }
   }
 }
