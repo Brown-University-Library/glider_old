@@ -46,8 +46,6 @@ const mutations = {
     },
 
     updatePartAttr(state, part) {
-        
-
         firebase.database().ref().child("parts/"+part.id+"/attrs/"+ part.attr.name).set(part.attr.val);
     }
 }
@@ -68,7 +66,6 @@ const remoteParts = firebase.database().ref().child('parts');
 remoteParts.on('value', function(snapshot) {
     let myparts = snapshot.val();
     state.parts = myparts;
-
 
 });
 

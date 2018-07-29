@@ -35,8 +35,12 @@ export default {
         partAttrs: 'getSharedPartAttributes'
     }),
 
-    attrs: (ctx) => {
+    attrs: function (ctx) {
       return ctx.partAttrs(ctx.id)
+    },
+
+    styleObject: function() {
+      
     }
 
   },
@@ -54,19 +58,19 @@ export default {
   },
 
   mounted() {
-    console.log("shared.... " + this.shared);
+
     let that = this;
 
     if(that.shared != undefined) {
+
       let thing = {
         id:that.id,
         attrs: JSON.parse(that.shared)
       };
+
       this.$store.commit('registerPartAttrs', thing);
       
       this.styleObject.backgroundColor = this.attrs.bgColor;
-      
-
     }
 
   },

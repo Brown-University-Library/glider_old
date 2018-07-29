@@ -25,6 +25,7 @@ export default {
   },
 
   methods: {
+    // Places are pretty simple. Layout can be dictated by the CSS or given special properties
     setupLayout() {
       switch(this.type) {
         case "grid":
@@ -36,6 +37,14 @@ export default {
         break; 
 
       }
+    },
+
+    activate() {
+      this.state = "active";
+    },
+
+    dectivate() {
+      this.state = "inactive";
     }
   },
 
