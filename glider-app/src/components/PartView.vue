@@ -40,6 +40,7 @@ export default {
       console.log("partView activating");
     },
 
+    // This data comes from the markup but should instead come from the FlightPlan parser.
     getParsedRegionObject(region) {
 
       // example: r1c1w1h1

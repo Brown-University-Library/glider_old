@@ -16,11 +16,11 @@ export default class App {
 	}
 
 	run() {
-
+		
 	}
 
 	getPartById(id) {
-
+		
 	}
 
 	/**
