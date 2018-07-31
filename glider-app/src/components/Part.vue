@@ -90,6 +90,10 @@ export default {
       this.state = state;
     },
 
+    deactivate() {
+      this.state = "inactive";
+    },
+
     activate(view){
       this.state = "active";
       this.activeView = view;
