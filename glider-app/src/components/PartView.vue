@@ -19,6 +19,7 @@ export default {
   data() {
     return {
       state: "inactive",
+      name:"Testy",
       styleObject: {}
     }
   },
@@ -27,8 +28,15 @@ export default {
 
   },
 
-  mounted() {
+  computed:{
+    attrs: function(){
+      return this.$parent.attrs
+    }
+  },
 
+  mounted() {
+    console.log("atters");
+    console.log(this.attrs);
   },
   
   methods: {

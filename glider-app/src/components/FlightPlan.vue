@@ -2,9 +2,11 @@
 	<div ref="flightplan" class="flightplan">
     <h1 style="display:none;">{{activePhase}}</h1>
 		<PartsList ref="parts">
-	    <Part ref="introSlide" id="introSlide" state="inactive" shared='{ "bgColor":"red", "fontSize:":30}'>
+	    <Part ref="introSlide" id="introSlide" state="inactive" shared='{"bgColor":"red", "fontSize:":30}'>
         <PartView ref="introSlide.default" id="introSlide.default" state="inactive">
+
 	       <h1>This is my intro "slide."</h1>
+         <h2>This object name: {{this.name}}</h2>
           <p>Even more content! Wow!</p>
         </Partview>
         <PartView ref="introSlide.controller" id="introSlide.controller" state="inactive">
@@ -13,7 +15,7 @@
         </PartView>
 	    </Part>
 
-	    <Part ref="part2" id="part2" state="inactive">
+	    <Part ref="part2" id="part2" state="inactive" shared='{"bgColor":"green", "fontSize:":30}'>
 	      <PartView ref="part2.default" id="part2.default" state="inactive">
           <h1>Hello! I'm another piece of content.</h1>
         </PartView>
@@ -85,6 +87,7 @@ export default {
 
   data() {
     return {
+      name:"FlightPlan!",
       allParts: []
     }
   },
@@ -111,6 +114,7 @@ export default {
           val: val
         }
       }
+
       this.$store.commit("updatePartAttr", thing);
 
     },

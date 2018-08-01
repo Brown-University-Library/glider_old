@@ -4,6 +4,7 @@ export default class Part {
 		console.log("Made a naked JS Part Model");
 		// This one can instantiate the Vue Components as required.
 		this.vueComponent = props.vueComponent;
+		this.sharedAttrs = props.sharedAttrs;
 	}
 
 	deactivate() {

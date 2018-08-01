@@ -2,8 +2,6 @@
   <div v-bind:style="styleObject" v-if="state=='active'" :class = "['part', 
                   'part-' + this.id, 
                   'state-' + state]">
-    <h2>Shared attribute bgColor: {{this.attrs.bgColor}}</h2>
-
     <slot></slot>
   </div>
 </template>
@@ -15,46 +13,35 @@ export default {
   inherit: true,
   props: {
     id: String,
-    // comes from the def in markup
+    // comes from the def in markup. copied to attrs below.
     shared:String     
   },
 
   data() {
     return {
       state: "inactive",
-      views:[],
-      styleObject: {},
-      // mutable attributes (shared stuff)
-      
+      name:"Part!",
+      views:[],     
+      styleObject:{},
       activeView: null
     }
   },
 
   computed: {
     ...mapGetters({
+        // mutable attributes (shared stuff)
         partAttrs: 'getSharedPartAttributes'
     }),
 
     attrs: function (ctx) {
       return ctx.partAttrs(ctx.id)
-    },
-
-    styleObject: function() {
-      
     }
-
   },
 
   updated() {
     this.populateViews();
     let v = this.getViewById(this.activeView);
     if(v !== undefined) v.updateState("active");
-    console.log("updateyguy");
-
-    this.styleObject.backgroundColor = this.attrs.bgColor;
-
-    console.log(this.styleObject);
-
   },
 
   mounted() {

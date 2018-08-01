@@ -42,20 +42,18 @@
   export default class Phase {
 
     constructor(options) {
-      options = Object.assign({
-        id: '_rand_' + Math.floor(Math.random() * 1000),
-        app: undefined,
-        delay: 0,
-        duration: Infinity
-      }, options);
 
-      this.id = options.id;
-      this.app = options.app;
-      this.delay = options.delay;
-      this.duration = options.duration;
+      this.id       = (options.id === 'undefined') ? this.generateId() : options.id;
+      this.app      = options.app;
+      this.delay    = (typeof options.delay === 'number') ? options.delay : 0;
+      this.duration = (typeof options.duration === 'number') ? options.duration : Infinity;
 
       this.currentState = 'idle';
       this.timer = null;
+    }
+
+    generateId() {
+      return '_rand_' + Math.floor(Math.random() * 1000);
     }
 
     // Given state s, if the Phase isn't already 
@@ -92,11 +90,11 @@
     //  of idle/running/complete
 
     notifyActive() {
-      this.app.phaseActive(this.id);
+      this.app.phaseActive(this);
     }
 
     notifyInactive() {
-      this.app.phaseInactive(this.id);
+      this.app.phaseInactive(this);
     }
 
     // Schedule a full run -- 
@@ -114,7 +112,9 @@
 
       afterDuration = function() {
         thisPhase.forceComplete();
-        stuffToDo.afterDuration();
+        if (stuffToDo.afterDuration !== undefined) {
+          stuffToDo.afterDuration();
+        }
       }
 
       afterDelay = function () {
@@ -148,6 +148,18 @@
     static createType(type, options) {
       if (Phase.types[type] !== undefined) {
         return new Phase.types[type](options);
+      }
+    }
+
+    // TEMP - this is for diagnostics only
+
+    get json() {
+      return {
+        id: this.id,
+        type: this.constructor.name,
+        delay: this.delay,
+        duration: this.duration,
+        children: this.childPhases !== undefined ? this.childPhases.map(child => child.json) : null
       }
     }
   }
@@ -348,12 +360,12 @@
 
   // The master clock (from TSS) -- CURRENTLY NOT USED
 
-	class Tempo {
+  class Tempo {
     constructor() {
-      this.timeout = 40;	 // clock timeout: 40ms or 25 fps
+      this.timeout = 40;   // clock timeout: 40ms or 25 fps
       this.itemList = [];  // list of items that require time support */
-      this.lastTimeout = performance.now();	// last registered time
-			this.timeupdate();
+      this.lastTimeout = performance.now(); // last registered time
+      this.timeupdate();
     }
 
     add(item) {

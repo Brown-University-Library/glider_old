@@ -12,6 +12,8 @@ export default class App {
 		// here we goooo
 		this.startTime =  new Date();
 		this.rootPhase;
+		this.activePhase;
+
 		this.pppStore = [];
 	}
 
@@ -25,13 +27,11 @@ export default class App {
 
 	/**
 	 * This is called by the parser (FlightPlan) to associate a Phase object with a Part and a Place. 
-	 * In Vue, triggered on Flight Plan's mounted() and update().
 	 * @param {object} pppCoordinate - The Part, Place, and Phase to associate
 	 * @return void 
 	 */
 	setPPP(pppCoordinate) {
-		//Phase object with a Part and a Place
-		this.killAllParts();
+		this.pppStore.push(pppCoordinate);
 	}
 
 	/**
@@ -39,9 +39,16 @@ export default class App {
 	* @param phaseObject - the ref to the active Phase
 	*
 	*/
-	phaseActive(phaseObject) {
+	phaseActive(phase) {
 
-		this.activePhase = phaseObject;
+		this.activePhase = phase;
+		this.triggerPhase(phase);
+
+	}
+
+	triggerPhase(phase) {
+
+		// Update Remote Phase value with phase. Places will do the work.
 
 	}
 
@@ -59,7 +66,7 @@ export default class App {
 	* @reutrn {Number} the Phase ID
 	*/
 	getActivePhaseId() {
-		return this.activePhase.id;
+		return this.activePhase;
 	}
 
 	/**
