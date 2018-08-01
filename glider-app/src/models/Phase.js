@@ -39,7 +39,7 @@
     complete: 3   // Completed being active
   }; */
 
-  class Phase {
+  export default class Phase {
 
     constructor(options) {
       options = Object.assign({
