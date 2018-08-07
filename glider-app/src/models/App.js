@@ -1,6 +1,6 @@
 
 /**
- * Class represents an App Instance. The whole "thing.""
+ * Class represents an App Instance. The whole "thing."
  */
 
 export default class App {
@@ -49,8 +49,17 @@ export default class App {
 	triggerPhase(phase) {
 
 		// Update Remote Phase value with phase. Places will do the work.
+		let ppMatchups = this.partPlacesByPhase(phase);
 
 	}
+
+	get phasePartsByPlace(place) {
+    	return this.pppStore.filter(ppp => (ppp.place === place));
+	}
+
+	get partPlacesByPhase(phase) {
+    	return this.pppStore.filter(ppp => (ppp.phase === phase));
+  	}
 
 	/**
 	* Called by Phases to announce a phase is inactive

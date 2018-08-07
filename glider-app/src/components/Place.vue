@@ -43,7 +43,7 @@ export default {
       this.state = "active";
     },
 
-    dectivate() {
+    deactivate() {
       this.state = "inactive";
     }
   },
