@@ -7,7 +7,7 @@
 
 	       <h1>This is my intro "slide."</h1>
          <h2>This object name: {{this.name}}</h2>
-          <p>Even more content! Wow!</p>
+         <p>Even more content! Wow!</p>
         </Partview>
         <PartView ref="introSlide.controller" id="introSlide.controller" state="inactive">
           <h1>I'm the controllyguy for IntroSlide</h1>

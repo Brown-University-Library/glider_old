@@ -14,10 +14,11 @@ export default class Place {
 		*
 		*/
 		let PP = window.Glider.phasePartsByPlace(this);
+
 	}
 	
 	activate() {
-
+		
 	}
 
 	deactivate() {

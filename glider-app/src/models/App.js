@@ -53,11 +53,11 @@ export default class App {
 
 	}
 
-	get phasePartsByPlace(place) {
+	phasePartsByPlace(place) {
     	return this.pppStore.filter(ppp => (ppp.place === place));
 	}
 
-	get partPlacesByPhase(phase) {
+	partPlacesByPhase(phase) {
     	return this.pppStore.filter(ppp => (ppp.phase === phase));
   	}
 

@@ -5,9 +5,11 @@ export default class Part {
 		// This one can instantiate the Vue Components as required.
 		this.vueComponent = props.vueComponent;
 		this.sharedAttrs = props.sharedAttrs;
+		this.views = [];
 	}
 
 	deactivate() {
 		this.vueComponent.deactivate();
 	}
 }
+

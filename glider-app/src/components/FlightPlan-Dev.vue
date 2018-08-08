@@ -1,6 +1,6 @@
 <template>
 	<div ref="flightplan" class="flightplan">
-  
+    
     <Part
       v-for="part in parts"
       v-bind:key="part.id"
@@ -19,13 +19,12 @@
       v-bind:phase="phase"
     ></Phase>
 
-
 	</div>
 </template>
 
 <script>
 export default {
-  name: 'FlightPlan',
+  name: 'FlightPlanTwo',
   props:['placeId'],
   components: {
     Part,
@@ -43,35 +42,10 @@ export default {
   data() {
     return {
       name:"FlightPlan!",
-      allParts: []
+      parts:[],
+      phases:[],
+      places:[]
     }
-  },
-
-  computed:{
-
-  }, 
-
-  methods: {
-
-    },
-
-    updateAttr : function(ref, attr, val) {
-
-
-    },
-
-    setPPP: function() {
-
-      
-  },
-
-  updated() {
-
-  },
-
-  mounted() {
-
-
   }
 }
 </script>

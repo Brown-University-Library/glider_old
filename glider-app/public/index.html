@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="main.css">
     <title>Glider Flight</title>
-        <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
-    <script>    const FBConfig = {
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>    
+      const FBConfig = {
         apiKey: "AIzaSyDiG79nyWATW1tcjLsD2YY2Zr5z8qW7ZyU",
         authDomain: "glider-flightplan-example.firebaseapp.com",
         databaseURL: "https://glider-flightplan-example.firebaseio.com",
@@ -17,14 +18,29 @@
         storageBucket: "glider-flightplan-example.appspot.com",
         messagingSenderId: "201089278480"
       }
-      firebase.initializeApp(FBConfig);</script>
+      firebase.initializeApp(FBConfig);
+    </script>
   </head>
   <body>
     <noscript>
       <strong>We're sorry but Glider doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
+    <div id="app">
 
+      Herp?
+      <!-- Timing: Activation in turn based on duration -->
+        <div phase-type="seq" phase-repeatcount="indefinite" id="r7">
+          <div phase-duration="12s" id="r8">
+            One
+          </div>
+          <div phase-duration="2s" id="r9" part-type="blue">
+            Two
+          </div>
+          <div phase-duration="4s" id="r10">
+            Three
+          </div>
+        </div> 
+    </div>
+    <!-- built files will be auto injected -->
   </body>
 </html>
