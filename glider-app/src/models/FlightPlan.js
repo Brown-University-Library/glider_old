@@ -6,31 +6,41 @@
 THE WAY THIS WORKS
 
 - Starts with init()
+
 - Calls parseFlightPlans with the starting DOM node
+
 - ...which in turn calls parseFlightPlan (allows for the 
   possibility of multiple flight plans in a single doc)
+
 - parseFlightPlan initialized a PPP register, which keeps 
   track of the current coordinate in PPP space -- this gets
   inherited down from parent DOM Elem to child
+
 - parseFlightPlan then creates a default SEQ Phase for
   the root DOM elem and recurses down into the DOM children
+
 - Each DOM child gets passed to parseDomElem, which receives
   the DOM element and the PPP Register. (There is also an
   optional flag, forceNewPhase, which is only set for the Phase 
   children of a PAR or SEQ phase)
+
 - parseDomElem takes the element and passes it to 
   getDataFromDomElem, which returns a data structure with the
   information from the DOM element itself (e.g. its attributes, 
   etc.)
+
 - Based on the data from getDataFromDomElem, parseDomElem now 
   creates new Parts, Places, and Phases (if indicated by the DOM)
   and accordingly updates the PPP Register. Once all changes 
   to the register are complete, the Register is asked to
   notify the App of a new PPP coordinate point.
+
 - parseDomElem now recurses to the children of the DOM Element,
   calling parseDomElem in turn on each, and passing the new
   PPP Register.
+
 - Repeat until done
+
 - The return value for the parsing process is an array of 
   initialized App objects with all the PPP associations. All 
   that's left is to call App.run() and the phases kick into

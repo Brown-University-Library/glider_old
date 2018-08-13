@@ -1,6 +1,7 @@
 
 /**
- * Class represents an Place Instance. These are accessed via routing in Vue but also need their own stuff.
+ * Class represents a Place Instance. 
+ * These are accessed via routing in Vue but also need their own Vue-agnostic functionality.
  */
 
 export default class Place {
@@ -13,15 +14,22 @@ export default class Place {
 		* When App.currentPhase equals a phase in this object, light 'em up!
 		*
 		*/
-		let PP = window.Glider.phasePartsByPlace(this);
+		this.PP = window.Glider.getPhasePartsByPlace(this);
+		this.activeParts = [];
 
 	}
 	
+	// or, "paint()." Activate the part(s) that are supposed to be displayed. 
+	// Triggered when phase is changed (either by App or by listening, TBD)
 	activate() {
-		
+		// set this.activeParts equal to the Parts pertinent to App.activePhase
+		// in other words, filter this.PP by current phase.
+		// activate each part, locally (not remotely) -- this is because places are routable.
 	}
 
 	deactivate() {
+
+		this.killAllParts();
 
 	}
 
@@ -51,6 +59,10 @@ export default class GridPlace extends Place {
     
 
   }
+
+  // this may be moot -- latest model is to have Place represent the route 
+  // and the Part to be wrapped in the Place CSS when displayed (including region)
+  // ...and most of it is handled by CSS
 
   constructCSS() {
     // from row, column, spanrows, spancols, etc;

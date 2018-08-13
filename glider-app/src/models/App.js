@@ -9,20 +9,15 @@ export default class App {
 	* @constructor
 	*/
 	constructor() {
-		// here we goooo
-		this.startTime =  new Date();
 		this.rootPhase;
+		
 		this.activePhase;
 
 		this.pppStore = [];
 	}
 
 	run() {
-		
-	}
-
-	getPartById(id) {
-		
+		this.rootPhase.run();
 	}
 
 	/**
@@ -40,24 +35,20 @@ export default class App {
 	*
 	*/
 	phaseActive(phase) {
-
 		this.activePhase = phase;
 		this.triggerPhase(phase);
-
 	}
 
 	triggerPhase(phase) {
-
 		// Update Remote Phase value with phase. Places will do the work.
 		let ppMatchups = this.partPlacesByPhase(phase);
-
 	}
 
-	phasePartsByPlace(place) {
+	getPhasePartsByPlace(place) {
     	return this.pppStore.filter(ppp => (ppp.place === place));
 	}
 
-	partPlacesByPhase(phase) {
+	getPartPlacesByPhase(phase) {
     	return this.pppStore.filter(ppp => (ppp.phase === phase));
   	}
 
@@ -66,13 +57,16 @@ export default class App {
 	* @param phaseObject - the ref to the inactive Phase
 	*
 	*/
-	phaseInactive(phaseObject) {
-
+	phaseInactive(phase) {
+		let activeParts = this.getPartPlacessByPhase(phase);
+		for (let i = 0; i <= activeParts.length; i++) {
+			activeParts[i].part.deactivate();
+		}
 	}
 
 	/**
 	* Get the ID of the currently-active Phase
-	* @reutrn {Number} the Phase ID
+	* @return {Number} the Phase ID
 	*/
 	getActivePhaseId() {
 		return this.activePhase;
@@ -81,7 +75,7 @@ export default class App {
 	/**
 	* Pretty much a private method; used before a repaint but isn't destructive.
 	* Deactivates all the current parts in a Place layout
-	* @param placethe Place to search for active Parts
+	* @param place the Place to search for active Parts
 	*/
 	killAllPlaceParts(place) {
 		for (let i = 0; i <= place.activeParts.length; i++) {
