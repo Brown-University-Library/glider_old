@@ -30,7 +30,6 @@
 
         <Place ref="Mobile" id="Mobile">
           
-
         </Place>
     	</div>
     </PlaceList>
@@ -87,7 +86,7 @@ export default {
 
   data() {
     return {
-      name:"FlightPlan!",
+      name:"FlightPlan",
       allParts: []
     }
   },

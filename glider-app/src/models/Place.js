@@ -20,7 +20,7 @@ export default class Place {
 	}
 	
 	// or, "paint()." Activate the part(s) that are supposed to be displayed. 
-	// Triggered when phase is changed (either by App or by listening, TBD)
+	// Triggered when phase is changed
 	activate() {
 		// set this.activeParts equal to the Parts pertinent to App.activePhase
 		// in other words, filter this.PP by current phase.

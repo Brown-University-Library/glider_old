@@ -10,7 +10,7 @@ export default class App {
 	*/
 	constructor() {
 		this.rootPhase;
-		
+
 		this.activePhase;
 
 		this.pppStore = [];
@@ -40,8 +40,9 @@ export default class App {
 	}
 
 	triggerPhase(phase) {
-		// Update Remote Phase value with phase. Places will do the work.
+		// Update Remote Phase value with phase. Immediate plan is that Places will do the work.
 		let ppMatchups = this.partPlacesByPhase(phase);
+		
 	}
 
 	getPhasePartsByPlace(place) {
@@ -58,7 +59,7 @@ export default class App {
 	*
 	*/
 	phaseInactive(phase) {
-		let activeParts = this.getPartPlacessByPhase(phase);
+		let activeParts = this.getPartPlacesByPhase(phase);
 		for (let i = 0; i <= activeParts.length; i++) {
 			activeParts[i].part.deactivate();
 		}

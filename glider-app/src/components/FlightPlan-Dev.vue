@@ -1,6 +1,5 @@
 <template>
 	<div ref="flightplan" class="flightplan">
-    
     <Part
       v-for="part in parts"
       v-bind:key="part.id"
@@ -18,7 +17,6 @@
       v-bind:key="phase.id"
       v-bind:phase="phase"
     ></Phase>
-
 	</div>
 </template>
 
