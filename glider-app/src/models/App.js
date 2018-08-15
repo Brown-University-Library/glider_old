@@ -41,7 +41,8 @@ export default class App {
 
 	triggerPhase(phase) {
 		// Update Remote Phase value with phase. Immediate plan is that Places will do the work.
-		let ppMatchups = this.partPlacesByPhase(phase);
+		//let ppMatchups = this.partPlacesByPhase(phase);
+		console.log(`${phase.id} has been activated!`);
 		
 	}
 
@@ -59,10 +60,12 @@ export default class App {
 	*
 	*/
 	phaseInactive(phase) {
-		let activeParts = this.getPartPlacesByPhase(phase);
-		for (let i = 0; i <= activeParts.length; i++) {
-			activeParts[i].part.deactivate();
-		}
+		// let activeParts = this.getPartPlacesByPhase(phase);
+		// for (let i = 0; i <= activeParts.length; i++) {
+		// 	activeParts[i].part.deactivate();
+		// }
+
+		console.log(`${phase.id} has been deactivated!`);
 	}
 
 	/**

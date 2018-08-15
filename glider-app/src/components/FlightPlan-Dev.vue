@@ -1,49 +1,40 @@
 <template>
 	<div ref="flightplan" class="flightplan">
-    <Part
-      v-for="part in parts"
-      v-bind:key="part.id"
-      v-bind:part="part"
-    ></Part>
-
-    <Place
-      v-for="place in phases"
-      v-bind:key="place.id"
-      v-bind:place="place"
-    ></Place>
-
-    <Phase
-      v-for="phase in phases"
-      v-bind:key="phase.id"
-      v-bind:phase="phase"
-    ></Phase>
+    <slot></slot>
 	</div>
 </template>
 
 <script>
+/* Importing Necessary Vue Components -- do not touch **/
+
+import Part from '@/components/Part.vue'
+import PartView from '@/components/PartView.vue'
+import Place from '@/components/Place.vue'
+
+/* Import other non-Vue modules */
+
+import FlightPlan from '@/models/FlightPlan.js'
+import Phase from '@/models/Phase.js'
+
 export default {
   name: 'FlightPlanTwo',
   props:['placeId'],
   components: {
     Part,
     Place,
-    Phase,
-    Display,
-    PartsList,
-    PhaseList,
-    DisplayList,
-    PlaceList,
     PartView,
-    KeyboardController
   },
 
   data() {
     return {
-      name:"FlightPlan!",
       parts:[],
       phases:[],
       places:[]
     }
+  },
+
+  mounted () {
+
   }
 }
 </script>

@@ -1,4 +1,5 @@
-
+import App from '@/models/App.js'
+import Phase from '@/models/Phase.js'
 
 /*
 
@@ -292,7 +293,7 @@ const PARSING_CONSTANTS = {
 function parseFlightPlans(domRoot) {
 
   let flightPlanDomRoots = Array.from(
-    domRoot.querySelectorAll(this.FLIGHT_PLAN_SELECTOR)
+    domRoot.querySelectorAll(PARSING_CONSTANTS.FLIGHT_PLAN_SELECTOR)
   );
 
   // If none found, assume the DOM element passed _is_ the FlightPlan root
@@ -315,7 +316,7 @@ function parseFlightPlans(domRoot) {
 
 function parseFlightPlan(domElem) { 
 
-  let app = new FakeApp(), // Shared by everything in this Flight
+  let app = new App(), // Shared by everything in this Flight
       elemData = getDataFromDomElem(domElem),
       initPart, initPlace, initPhase;
 
