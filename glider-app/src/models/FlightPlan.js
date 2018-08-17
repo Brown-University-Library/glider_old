@@ -279,6 +279,10 @@ const PARSING_CONSTANTS = {
     DURATION_ATT_NAME: 'phase-duration',
     ID_ATT_NAME: 'id',
     PHASE_DESCENDANT_SELECTOR: '*[phase-type],*[phase-duration],*[phase-begin]'
+  },
+
+  PLACE: {
+    PLACE_ATT_NAME: 'place'
   }
 }
 
@@ -661,7 +665,7 @@ function getPlaceDataFromDomElem(domElem) {
 
 
   return {
-    type: 'Places coming soon!'
+    id:  domElem.getAttribute(PARSING_CONSTANTS.PLACE.TYPE_ATT_NAME)
   }
 }
 

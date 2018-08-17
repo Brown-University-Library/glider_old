@@ -1,5 +1,6 @@
 <template>
 	<div ref="flightplan" class="flightplan">
+
     <slot></slot>
 	</div>
 </template>

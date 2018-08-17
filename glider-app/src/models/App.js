@@ -26,7 +26,9 @@ export default class App {
 	 * @return void 
 	 */
 	setPPP(pppCoordinate) {
+		let { part, place, phase } = pppCoordinate;
 		this.pppStore.push(pppCoordinate);
+		console.log(`Associating Phase ${phase.id} with Part ${part.id} and Place ${place.id}`);
 	}
 
 	/**
@@ -73,7 +75,7 @@ export default class App {
 	* @return {Number} the Phase ID
 	*/
 	getActivePhaseId() {
-		return this.activePhase;
+		return this.activePhase.id;
 	}
 
 	/**
