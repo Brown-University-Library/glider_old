@@ -1,11 +1,12 @@
 <template>
 <FlightPlanTwo>
+
   <div :class="['wrap-everything', placeId]">
   
     <div class="glider-root" id="main-slideshow" phase-type="par">
   <!-- Basic seq/par designation. 
             Heading stays throughout; One, Two, Three are each activated in turn. -->
-      <div  phase-type="par" place="DSLWall" region="r1c1w2h1"id="r1">
+      <div phase-type="par" place="DSLWall" region="r1c1w2h1"id="r1">
         <h1 id="r2">
           Here is some HTML, with <span id="r21">nested elements</span>, and even 
           <span id="r22"><span id="r221">nested</span> within nested</span>.
@@ -46,7 +47,6 @@
       
       <!-- Order of activation according to specific start times: 
             First, Second, Third, Fourth (Third de-activates after 3 seconds) -->
-      
       <ul phase-type="par" id="r11">
         <li phase-begin="2s" id="r12">First</li>
         <li phase-begin="6s" phase-duration="3s" id="r13">Third</li>

@@ -1,4 +1,3 @@
-
 /**
  * Class represents an App Instance. The whole "thing."
  */
@@ -14,6 +13,8 @@ export default class App {
 		this.activePhase;
 
 		this.pppStore = [];
+		this.places = [];
+		this.parts = [];
 	}
 
 	run() {
@@ -28,7 +29,25 @@ export default class App {
 	setPPP(pppCoordinate) {
 		let { part, place, phase } = pppCoordinate;
 		this.pppStore.push(pppCoordinate);
+
+
+		this.registerPart(part);
+		this.registerPlace(place);
+
+		this.places.push(place);
+
+
 		console.log(`Associating Phase ${phase.id} with Part ${part.id} and Place ${place.id}`);
+	}
+
+	registerPart(part) {
+		if(this.parts.indexOf(part) == -1)
+			this.parts.push(part);
+	}
+
+	registerPlace(place) {
+		if(this.places.indexOf(place) == -1)
+			this.places.push(place);
 	}
 
 	/**
@@ -45,6 +64,17 @@ export default class App {
 		// Update Remote Phase value with phase. Immediate plan is that Places will do the work.
 		//let ppMatchups = this.partPlacesByPhase(phase);
 		console.log(`${phase.id} has been activated!`);
+
+		let PP = this.getPartPlacesByPhase(phase);
+
+		//console.log(PP);
+
+		for(let i = 0; i < PP.length; i++) {
+		 	console.log ("Put " + PP[i].part.id + " on " + PP[i].place.id);
+		}
+
+		//console.log('Matching PartPlaces:' + this.getPartPlacesByPhase(phase).map(pp => `${pp.part.id} goes on ${pp.place.id}`).join(', '));
+
 		
 	}
 

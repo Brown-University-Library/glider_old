@@ -320,13 +320,12 @@ function parseFlightPlans(domRoot) {
 
 function parseFlightPlan(domElem) { 
 
-  let app = new App(), // Shared by everything in this Flight
+  let app = window.glider, // Shared by everything in this Flight
       elemData = getDataFromDomElem(domElem),
       initPart, initPlace, initPhase;
 
   // TEMP FOR DEBUGGING -- Set app to Global
 
-  window.glider = app;
 
   // Create root Phase object (seq unless specified otherwise)
 
@@ -673,6 +672,7 @@ function getPlaceDataFromDomElem(domElem) {
 // Main -- call parseFlightPlans on DOM load
 
 function init() {
+  window.glider = new App();
   document.addEventListener('DOMContentLoaded', () => {
     let apps = parseFlightPlans(document.body);
     console.log(apps[0]);

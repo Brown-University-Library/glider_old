@@ -9,7 +9,7 @@ export default class Part {
 	}
 
 	deactivate() {
-		this.vueComponent.deactivate();
+		
 	}
 }
 

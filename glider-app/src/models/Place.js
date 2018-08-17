@@ -28,9 +28,7 @@ export default class Place {
 	}
 
 	deactivate() {
-
 		this.killAllParts();
-
 	}
 
 	setupLayout () {
