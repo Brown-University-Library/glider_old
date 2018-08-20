@@ -29,13 +29,10 @@ export default class App {
 	setPPP(pppCoordinate) {
 		let { part, place, phase } = pppCoordinate;
 		this.pppStore.push(pppCoordinate);
-
-
 		this.registerPart(part);
 		this.registerPlace(place);
 
 		this.places.push(place);
-
 
 		console.log(`Associating Phase ${phase.id} with Part ${part.id} and Place ${place.id}`);
 	}

@@ -2,7 +2,9 @@
   <div v-bind:style="styleObject" v-if="state=='active'" :class = "['part', 
                   'part-' + this.id, 
                   'state-' + state]">
-    <slot></slot>
+    <slot>
+      
+    </slot>
   </div>
 </template>
 
@@ -19,7 +21,7 @@ export default {
 
   data() {
     return {
-      state: "inactive",
+      state: "active",
       name:"Part!",
       views:[],     
       styleObject:{},

@@ -1,5 +1,5 @@
 export default class PartView {
-	constructor(props) {
-		this.parent = props.parent;
+	constructor(parent, props) {
+		this.options = this.props.options;
 	}
 }
