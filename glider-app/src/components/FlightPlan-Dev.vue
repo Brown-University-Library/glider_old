@@ -1,13 +1,13 @@
 <template>
 	<div ref="flightplan" class="flightplan">
 
-  <Part
-    v-for="part in parts"
-    v-bind:id="part.id"
-    v-bind:ref="part.id"
-  >
-    
-  </Part>
+    <Part
+      v-for="part in parts"
+      v-bind:id="part.id"
+      v-bind:ref="part.id"
+    >
+      
+    </Part>
 
     <slot></slot>
 	</div>
@@ -42,7 +42,7 @@ export default {
 
     this.parts = window.glider.parts;
     this.places = window.glider.places;
-    
+
   }
 }
 </script>

@@ -673,8 +673,6 @@ function getPartDataFromDomElem(domElem) {
 // DATA-FROM-DOM FUNCTIONS: Places temp from Joel
 
 function getPlaceDataFromDomElem(domElem) {
-
-
   return {
     id: domElem.getAttribute(PARSING_CONSTANTS.PART.ID_ATT_NAME)
   }
