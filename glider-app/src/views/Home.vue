@@ -1,7 +1,7 @@
 <template>
-<FlightPlanTwo>
+<FlightPlanTwo :class = "placeId">
 
-  <div :class="['wrap-everything', placeId]">
+  <div :class="['wrap-everything']">
   
     <div class="glider-root" id="main-slideshow" phase-type="par">
   <!-- Basic seq/par designation. 
@@ -12,7 +12,7 @@
           <span id="r22"><span id="r221">nested</span> within nested</span>.
         </h1>
 
-        <h1 id="s2" part-type="green">
+        <h1 id="s2" part-id="part1" part-type="green">
           Here is some HTML, with <span id="r21">nested elements</span>, and even 
           <span id="r22"><span id="r221">nested</span> within nested, but 
           with a <span phase-begin="3s">phase definition</span></span>.

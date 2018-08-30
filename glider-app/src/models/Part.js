@@ -9,7 +9,7 @@ export default class Part {
 		this.state = "inactive";
 		this.HTMLContent = props.container.outerHTML;
 		
-		//this.registerPartViews(props.views);
+		this.registerPartViews();
 
 	}
 
@@ -18,8 +18,10 @@ export default class Part {
 		this.state = "inactive";
 	}
 
-	activate() {
+	activate(partView) {
 		this.container.classList.remove("hidden");
+		
+		partView.state = "active";
 		this.state = "active";
 	}
 
@@ -28,8 +30,9 @@ export default class Part {
 		console.log(`Updated ${attr} to ${val}!`);
 	}
 
-	registerPartViews(v) {
+	registerPartViews() {
 		// for each partview (from flightPlan?), register a new PartView
+		let v = this.container.querySelectorAll(".part-view");
 		let that = this;
 		for (let i = 0; i < v.length; i++) {
 			this.views.push(new PartView(that, v[i]));

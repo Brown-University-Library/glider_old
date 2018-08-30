@@ -1,11 +1,18 @@
 <template>
-	<div ref="flightplan" class="flightplan">
+	<div ref="flightplan" :class="['flightplan',  placeWrap]">
 
     <Part
       v-for="part in parts"
       v-bind:id="part.id"
       v-bind:ref="part.id"
     >
+
+      <PartView
+        v-for="view in part.views"
+        v-bind:id="part.id"
+      >
+
+      </PartView>
       
     </Part>
 

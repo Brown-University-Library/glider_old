@@ -2,6 +2,22 @@
  * Class represents an App Instance. The whole "thing."
  */
 
+// Recommended next steps:
+//  1) Massage FlightPlan.js
+// 	- Reliably create Parts and PartViews to pass to App.JS
+// 		- Pick a markup convention and roll with it, then we can adapt!
+// 		- *Considered to be Minimum Viable necessary -- hopefully we can tackle this first.
+
+// 2) MVP PUSH (DO NOT WORK ON ANYTHING ELSE UNTIL THIS FUNCTIONALITY IS IN PLACE)
+// 	- With FlightPlan.js complete, use App.js to activate/deactivate parts based on phase (locally). FULL STOP.
+
+// 3). Connect App.js to $store to push active state remotely; refactor App.js as necessary
+// 
+// 4). Massage Places
+		
+
+ import store from '@/store'
+
 export default class App {
 
 	/**
@@ -59,15 +75,17 @@ export default class App {
 
 	triggerPhase(phase) {
 		// Update Remote Phase value with phase. Immediate plan is that Places will do the work.
-		//let ppMatchups = this.partPlacesByPhase(phase);
+
 		console.log(`${phase.id} has been activated!`);
 
 		let PP = this.getPartPlacesByPhase(phase);
 
-		//console.log(PP);
+	
 
 		for(let i = 0; i < PP.length; i++) {
-		 	console.log ("Put " + PP[i].part.id + " on " + PP[i].place.id);
+		 	console.log ("Put part " + PP[i].part.id + " on " + PP[i].place.id);
+
+		 	//PP[i].part.activate();
 		}
 
 		//console.log('Matching PartPlaces:' + this.getPartPlacesByPhase(phase).map(pp => `${pp.part.id} goes on ${pp.place.id}`).join(', '));

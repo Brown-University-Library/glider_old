@@ -172,7 +172,9 @@ window.totalParts = 0;
 class FakePart {
 
   constructor(options) {
+    // #debug
     window.totalParts++;
+    
     options = Object.assign({
       id: 'pt_' + Math.floor(Math.random() * 1000),
       type: '_default',
@@ -188,6 +190,10 @@ class FakePart {
 
     if(!!this.container)
       this.container.classList.add('hidden');
+  }
+
+  activate() {
+    this.container.classList.remove('hidden');
   }
 }
 
@@ -266,7 +272,7 @@ const PARSING_CONSTANTS = {
   FLIGHT_PLAN_SELECTOR: '.glider-root',
   PART: {
     TYPE_ATT_NAME: 'part-type',
-    ID_ATT_NAME: 'id',
+    ID_ATT_NAME: 'part-id',
     OPTIONS_ATT_NAME: 'part-options'
   },
   PHASE: {

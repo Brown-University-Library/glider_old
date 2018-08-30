@@ -21,7 +21,7 @@ export default {
 
   data() {
     return {
-      state: "active",
+      state: "inactive",
       name:"Part!",
       views:[],     
       styleObject:{},
