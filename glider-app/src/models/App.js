@@ -88,6 +88,8 @@ export default class App {
 		for(let i = 0; i < PP.length; i++) {
 		 	console.log ("Tell Place " + PP[i].place.id + " to show " + PP[i].part.id);
 
+			// #ToDo account for region
+
 		 	// don't do this. #ToDo. for testing purposes only. Let Places do it.
 		 	//PP[i].part.activate();
 

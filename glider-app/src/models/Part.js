@@ -14,17 +14,17 @@ export default class Part {
 
 	}
 
-	// This will be bound by the Part's Vue Component Representation
+	// This will be two-way bound by the Part's Vue Component Representation
 
 	deactivate() {
-		this.container.classList.add("hidden");
+		//this.container.classList.add("hidden");
 		this.state = "inactive";
 	}
 
-	// Again, bound by the Vue Component
+	// Again, two-way bound by the Vue Component
 
 	activate(partView) {
-		this.container.classList.remove("hidden");
+		//this.container.classList.remove("hidden");
 		
 		partView.state = "active";
 		this.state = "active";
@@ -34,7 +34,7 @@ export default class Part {
 		this.styleOjb = obj;
 	}
 
-	// #ToDo Refactor to use Store when this is working locally
+	// #ToDo Refactor to use Store when this is working locally.
 
 	updateSharedOption(attr, val) {
 		this.sharedAttrs[attr] = val;
@@ -46,6 +46,7 @@ export default class Part {
 
 	registerPartViews() {
 		// for each partview (from flightPlan?), register a new PartView
+		// #ToDo create a way to assume a default view
 		let v = this.container.querySelectorAll(".part-view");
 		let that = this;
 		for (let i = 0; i < v.length; i++) {
