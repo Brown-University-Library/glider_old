@@ -1,20 +1,22 @@
 <template>
-	<div ref="flightplan" :class="['flightplan',  placeWrap]">
+	<div ref="flightplan" :class="['flightplan']">
+    <Place :id = "placeId" :class="placeId">
+        <Part
+          v-for="part in parts"
+          v-bind:id="part.id"
+          v-bind:ref="part.id"
+          v-bind:state="part.state"
+        >
 
-    <Part
-      v-for="part in parts"
-      v-bind:id="part.id"
-      v-bind:ref="part.id"
-    >
+          <PartView
+            v-for="view in part.views"
+            v-bind:id="part.id"
+          >
 
-      <PartView
-        v-for="view in part.views"
-        v-bind:id="part.id"
-      >
-
-      </PartView>
-      
-    </Part>
+          </PartView>
+          
+        </Part>
+    </Place>
 
     <slot></slot>
 	</div>

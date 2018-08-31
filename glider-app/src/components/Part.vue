@@ -1,9 +1,8 @@
 <template>
   <div v-bind:style="styleObject" v-if="state=='active'" :class = "['part', 
-                  'part-' + this.id, 
-                  'state-' + state]">
+                  'part-' + this.id]">
     <slot>
-      
+      {{id}}
     </slot>
   </div>
 </template>
@@ -14,6 +13,7 @@ export default {
   name: 'Part',
   inherit: true,
   props: {
+    state: "",
     id: String,
     // comes from the def in markup. copied to attrs below.
     shared:String     
@@ -21,7 +21,6 @@ export default {
 
   data() {
     return {
-      state: "inactive",
       name:"Part!",
       views:[],     
       styleObject:{},
@@ -44,6 +43,8 @@ export default {
     this.populateViews();
     let v = this.getViewById(this.activeView);
     if(v !== undefined) v.updateState("active");
+
+    console.log("component updated");
   },
 
   mounted() {

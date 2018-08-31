@@ -1,5 +1,5 @@
 <template>
-<FlightPlanTwo :class = "placeId">
+<FlightPlanTwo :placeId = "placeId">
 
   <div :class="['wrap-everything']">
   

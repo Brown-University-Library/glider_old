@@ -2,21 +2,24 @@
  * Class represents an App Instance. The whole "thing."
  */
 
-// Recommended next steps:
+// 8/31 Suggested next steps:
 //  1) Massage FlightPlan.js
-// 	- Reliably create Parts and PartViews to pass to App.JS
-// 		- Pick a markup convention and roll with it, then we can adapt!
-// 		- *Considered to be Minimum Viable necessary -- hopefully we can tackle this first.
+// 	- Reliably create Parts and PartViews to pass to App.js
+//      - Reliably pass Place info to App.js
+// 		- Pick a syntax convention and roll with it, then we can adapt!
+// 		- * Considered to be Minimum Viable necessary -- hopefully we can tackle this first.
 
-// 2) MVP PUSH (DO NOT WORK ON ANYTHING ELSE UNTIL THIS FUNCTIONALITY IS IN PLACE)
-// 	- With FlightPlan.js complete, use App.js to activate/deactivate parts based on phase (locally). FULL STOP.
+// 2) MVP PUSH (DO NOT WORK ON ANYTHING ELSE UNTIL THIS FUNCTIONALITY IS IN PLACE -- the rest will follow!)
+// 	- With FlightPlan.js complete, use App.js to activate/deactivate parts based on phase and place (locally).
+//  - When Place information is being passed reliably, this should be easy enough. As presently designed, the Place will activate its parts when told to do so.
 
-// 3). Connect App.js to $store to push active state remotely; refactor App.js as necessary
+// 3). Joel to connect App.js to $store to push active state remotely; refactor App.js as necessary
 // 
-// 4). Massage Places
+// 4). Decouple places and part activation
+// 5). Test and refactor, rinse and repeat!
 		
 
- import store from '@/store'
+import store from '@/store'
 
 export default class App {
 
@@ -76,16 +79,18 @@ export default class App {
 	triggerPhase(phase) {
 		// Update Remote Phase value with phase. Immediate plan is that Places will do the work.
 
-		console.log(`${phase.id} has been activated!`);
+		console.log(`phase ${phase.id} has been activated!`);
 
 		let PP = this.getPartPlacesByPhase(phase);
 
 	
 
 		for(let i = 0; i < PP.length; i++) {
-		 	console.log ("Put part " + PP[i].part.id + " on " + PP[i].place.id);
+		 	console.log ("Tell Place " + PP[i].place.id + " to show " + PP[i].part.id);
 
+		 	// don't do this. #ToDo. for testing purposes only. Let Places do it.
 		 	//PP[i].part.activate();
+
 		}
 
 		//console.log('Matching PartPlaces:' + this.getPartPlacesByPhase(phase).map(pp => `${pp.part.id} goes on ${pp.place.id}`).join(', '));

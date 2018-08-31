@@ -168,32 +168,42 @@ class FakeApp {
 }
 
 // Fake Part object
-window.totalParts = 0;
+window.allParts = [];
 class FakePart {
 
   constructor(options) {
     // #debug
-    window.totalParts++;
+ 
     
-    options = Object.assign({
-      id: 'pt_' + Math.floor(Math.random() * 1000),
-      type: '_default',
-      options: [],
-      container: undefined
-    }, options);
+    if(!options) {
+      options = Object.assign({
+        id: 'pt_' + Math.floor(Math.random() * 1000),
+        type: '_default',
+        options: [],
+        container: undefined
+      }, options);
+    }
 
     this.app = options.app;
-    this.id = options.id;
+    this.id = options.id || 'pt_' + Math.floor(Math.random() * 1000);
     this.type = options.type;
     this.options = options.options;
     this.container = options.container;
+    this.state = "inactive";
 
-    if(!!this.container)
-      this.container.classList.add('hidden');
+    // if(!!this.container)
+    //   this.container.classList.add('hidden');
+
+       window.allParts.push(this);
   }
 
   activate() {
-    this.container.classList.remove('hidden');
+    this.state="active";
+    console.log(`activating part ${this.id}`);
+  }
+
+  deactivate() {
+    this.state="inactive";
   }
 }
 
@@ -377,6 +387,8 @@ function parseDomElem(domElem, pppRegister, forceNewPhase = false) {
     pppRegister_new = pppRegister.copy(),
     registerChanged = false;
 
+    console.log(elemData);
+
   // If a Part definition, create new and update register
   // TODO: this is a stub
 
@@ -387,7 +399,7 @@ function parseDomElem(domElem, pppRegister, forceNewPhase = false) {
   }
 
   // If a change of Place, create new and update register
-  // TODO: this is a stub
+  // TODO: this is a stub; Joel needs help here...
 
   if (elemData.place.changesPlace) {
     let newPlace = new Place();
@@ -557,6 +569,9 @@ function getDataFromDomElem(domElem) {
     partData = getPartDataFromDomElem(domElem),
     placeData = getPlaceDataFromDomElem(domElem);
 
+    // tested to this point
+    // console.log(`PlaceData is ${placeData.id}`);
+
   return {
     domNode: domElem,
     part: partData,
@@ -665,7 +680,7 @@ function getPartDataFromDomElem(domElem) {
     id = getPartIdFromDomElem(domElem),
     options = getPartOptionsFromDomElem(domElem),
     partContainer = domElem,
-    definesNewPart = (type !== null);
+    definesNewPart = true;
 
   return {
     type: type,
@@ -680,7 +695,7 @@ function getPartDataFromDomElem(domElem) {
 
 function getPlaceDataFromDomElem(domElem) {
   return {
-    id: domElem.getAttribute(PARSING_CONSTANTS.PART.ID_ATT_NAME)
+    id: domElem.getAttribute(PARSING_CONSTANTS.PLACE.ID_ATT_NAME)
   }
 }
 

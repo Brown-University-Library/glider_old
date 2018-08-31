@@ -8,15 +8,20 @@ export default class Part {
 		this.views = [];
 		this.state = "inactive";
 		this.HTMLContent = props.container.outerHTML;
+		this.styleObj = {};
 		
 		this.registerPartViews();
 
 	}
 
+	// This will be bound by the Part's Vue Component Representation
+
 	deactivate() {
 		this.container.classList.add("hidden");
 		this.state = "inactive";
 	}
+
+	// Again, bound by the Vue Component
 
 	activate(partView) {
 		this.container.classList.remove("hidden");
@@ -25,10 +30,19 @@ export default class Part {
 		this.state = "active";
 	}
 
+	applyStyle(obj) {
+		this.styleOjb = obj;
+	}
+
+	// #ToDo Refactor to use Store when this is working locally
+
 	updateSharedOption(attr, val) {
 		this.sharedAttrs[attr] = val;
 		console.log(`Updated ${attr} to ${val}!`);
 	}
+
+	// Instatiate all the PartViews
+	// #ToDo if there aren't any PartViews defined, do something about a "default"
 
 	registerPartViews() {
 		// for each partview (from flightPlan?), register a new PartView
