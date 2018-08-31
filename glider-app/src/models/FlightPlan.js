@@ -346,10 +346,12 @@ function parseFlightPlan(domElem) {
   initPhase = getNewPhase(elemData, app, newPhaseType);
 
   // Create root Part object
+  // #ToDo Joel ask about this!
 
   initPart = new FakePart();
 
   // Create root Place object
+  // #ToDO Joel ask about this!
 
   initPlace = new FakePlace();
 
@@ -691,7 +693,9 @@ function getPartDataFromDomElem(domElem) {
   }
 }
 
-// DATA-FROM-DOM FUNCTIONS: Places temp from Joel
+// DATA-FROM-DOM FUNCTIONS: Places temp from Joel. 
+// #ToDo Still need to figure out how this Place data gets to App.js
+// #ToDo does every phase need place defined? Probably, right?
 
 function getPlaceDataFromDomElem(domElem) {
   return {

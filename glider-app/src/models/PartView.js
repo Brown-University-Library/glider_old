@@ -4,6 +4,7 @@ export default class PartView {
 		this.parent = parent;
 		this.element = props.domElement;
 		this.state = props.state || "inactive";
+		this.content = this.element.outerHTML;
 	}
 
 	activate() {
