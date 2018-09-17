@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Hello!</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="Phase.js"></script>
+    <script src="FlightPlan.js"></script>
+  </head>  
+  <body id="root" class="glider-root" phase-type="par">
+    
+    <!-- This is a place to document and test the encoding scheme for Parts -->
+
+    <!-- PART CREATION AND INSTANTIATION 
+    
+        Parts are created implicitly every time a Phase is defined.
+        This is because a Phase needs a "something" to turn off and on.
+
+        If a Phase is defined, but a Part is not specified, the Part
+        is simply a default "pass-through" or "identity" Part that 
+        passes through the HTML contained. It will share the ID of the
+        Phase.
+      
+      -->
+
+    <div id="z1" phase-type="par">
+      This is contained in an Identity Part with id #z1, and Phase #z1.
+    </div>
+
+    <!-- With the creation of a Phase container (i.e. PAR or SEQ)
+        all children of that Phase container are themselves Parts
+        (since each will have to be turned off and on)
+
+        In the case of the children here (#z2 > *) the ID's are
+        auto-generated.
+    -->
+
+    <ul id="z2" phase-type="seq">
+      <li>This is a Phase, and therefore a Part</li>
+      <li>This is also a Phase, and therefore also a Part</li>
+      <li>This too is a Phase, and therefore this too is a Part</li>
+    </ul>
+
+    <!-- You can (of course) explicitly create a part by specifying
+        a Part type and (optionally) a Part View -->
+
+
+    <!-- PART TYPES AND VIEWS
+      
+        A Part has a Type and 0 or more Views
+
+        The Type can be specified by:
+
+          @part-type
+          @part="<TYPE>" or
+          classname part-<TYPE>
+
+        If the View is not specified, then the Part uses its
+        default View (as specified in the Part definition)
+
+    -->
+
+    <div id="a" part-type="typeA"></div>
+    <div id="a2" part="typeA2"></div>
+    <div id="a3" class="red part-typeA3 green"></div>
+
+    <!-- A View is specified by 
+          @part-view or
+          classname part-<TYPE>-<VIEW> 
+            (the type must match the Part)
+
+        A View _must_ be specified as a direct child of a Part
+        (you can't define a Part and a PartView on the
+        same element)
+    -->
+
+    <div id="b" part="typeB">
+      <div id="b1" part-view="viewB1"></div>
+      <div id="b2" class="red part-view-viewB2 green"></div>
+    </div>
+
+    <div id="d" part-type="partA">
+      <div id="d2" part-view="viewA">
+        This is Part #d with view viewA
+      </div>
+      <!-- #d2 has type="partA" and view="viewA" -->
+    </div>
+
+    <div id="f" part-type="partF">
+      <div>
+        <div id="f2" part-view="viewF2">
+          This is an error (or something unexpected
+          by the system) -- Views must be defined
+          by direct children of Parts.
+        </div>
+      </div>
+    </div>
+
+    <!-- PART OPTIONS 
+    
+          You can pass options to a Part upon creation through
+          the @part-options attribute.
+
+          The value is basically a JSON object, minus the 
+          surrounding {  }.
+    -->
+
+    <div id="e" 
+      part="typeE-viewE" 
+      part-options="this: 2, is: 'a', 'set of options': [3,4,5]"></div>
+
+    <!-- Part references 
+    
+          A Part can gets its ID from @id - and if it also defines a Phase, then
+          it shares an ID (which is OK because it only has be unique among Parts)
+    -->
+
+    <!-- Part and Phase have ID #i1 -->
+
+    <div id="i1" part-type="typeI" phase-type="seq"></div>
+
+    <!-- If you want the ID to be different for the Part, use the @part-id attribute 
+         (here the Part has ID #j2, while Phase has #j1)
+    -->
+
+    <div id="j1" part-type="typeJ1" phase-type="seq" part-id="j2"></div>
+
+    <!-- If you want the Phase to apply to a Part _previously defined_, 
+         then use the @part-ref attribute -->
+
+    <div id="k1" phase-begin="3s" part-ref="#j2"></div>
+
+  </body>
+</html>

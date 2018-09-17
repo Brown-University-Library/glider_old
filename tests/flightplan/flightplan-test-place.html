@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Hello!</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="Phase.js"></script>
+    <script src="FlightPlan.js"></script>
+  </head>  
+  
+  <body id="main-slideshow">
+    
+      <!-- This is a place to document and test the encoding scheme for Places -->
+  
+      <!-- 
+  
+        Places have two aspects, arranged in a hierarchy
+        - The Role (level 1): this is the equivalent of a 
+          'display/device class', e.g. "The DSL wall", 
+          "audience phones", etc.
+        - The Region (level 2): this is the area of the
+          display to put the Part. What exactly this means depends 
+          on the Place-type.
+      -->
+  
+      <!-- 
+        
+        Roles are defined through:
+  
+        - classnames of the format place-<ROLE>
+        - the @place-role attribute
+        - the @place attribute
+      
+      -->
+  
+      <div id="d1" class="red place-mobile green">
+        This is on the phones
+      </div>
+  
+      <div id="d2" place-role="mobile">
+        This is also on the phones
+      </div>
+  
+      <div id="d3" place="mobile">
+        Yet again on the phones
+      </div>
+  
+      <!-- 
+  
+        Regions are defined through:
+  
+        - classnames of the format place-<ROLE>-<REGION>
+        - the @place-region attribute
+        - the @place attribute
+  
+        Note that Regions without Roles are nonsensical; you need to 
+        have a Role in order to defined a Region (the Role's PlaceType
+        is what defines how Region identifiers are interpreted).
+  
+      -->
+  
+      <div id="e1" class="place-roleE1-regionE1"></div>
+  
+      <div id="e2" place-role="roleE2" place-region="regionE2"></div>
+  
+      <div id="e3" place="roleE3-regionE3"></div>
+  
+  
+      <!--
+  
+        Regions inherit the Role from their ancestors. You cannot
+        embed a Role inside of another Role (the inner Role designation 
+        will be ignored)
+  
+      -->
+  
+      <div id="f1" class="place-roleF1">
+        <div id="f2" place-region="regionF2">
+          This is in Place rolef1-regionF2
+        </div>
+        <div>
+          <div>
+            <div id="f3" place-region="regionF3">
+              This is in Place roleF1-regionF3
+            </div>
+          </div>
+        </div>
+        <div id="f4" place-role="roleF4" place-region="regionF4">
+          This is in Place roleF1-regionF4 (roleF4 is ignored)
+        </div>
+      </div>
+    </body>
+    <script>
+    console.log('hfdf')
+    </script>
+</html>
