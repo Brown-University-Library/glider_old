@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Documentation / test suite for Glider Part markup</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="Phase.js"></script>
+    <script src="FlightPlan.js"></script>
+  </head>
+  <body id="root" class="glider-root" phase-type="seq">
+    
+    <!-- This is a place to document and test the encoding scheme -->
+
+    <!-- 
+        This file tests the markup for Parts/Views, Places, and Phases 
+        in combination. For each of those in isolation, see
+        flightplan-test-phase.html flightplan-test-part.html and
+        flightplan-test-place.html
+    -->
+
+    <!-- 
+
+      NOTE ON CURRENT VERSION: This is taken from the old pilot demo presentation.
+        It does NOT include Part Views (all Views are implied and therefore _default).
+
+      As we develop a Parts library, we should test/demo them here. Currently there is 
+      reference to the fullscreen-textpanel Part, which isn't yet implemented.
+
+    -->
+
+    <!--  Slide on geometry  -->
+    
+    <div id="geometry">
+      <div phase-type="par" place="wall">
+        <div place-region="c1r1w1h2" style="background-color: #f00">&nbsp;</div>
+        <div place-region="c2r1w1h1" style="background-color: #FF7400">&nbsp;</div>
+        <div place-region="c3r1w1h1" style="background-color: #099">&nbsp;</div>
+        <div place-region="c4r1w1h1" style="background-color: #0c0">&nbsp;</div>
+        <div place-region="c2r2w1h1" style="background-color: #008500">&nbsp;</div>
+        <div place-region="c3r2w1h1" style="background-color: #A60000">&nbsp;</div>
+        <div place-region="c4r2w1h1" style="background-color: #006363">&nbsp;</div>
+        <div place-region="c1r3w1h1" style="background-color: #5cc">&nbsp;</div>
+        <div place-region="c2r3w1h1" style="background-color: #ff4040">&nbsp;</div>
+        <div place-region="c3r3w2h1" style="background-color: #39E639">&nbsp;</div>
+        <div place-region="all">
+          Wall Geometry
+        </div>
+      </div>
+      
+      <div place="secondary" 
+        part="fullscreen-textpanel" part-options="background-color: #0c0">
+        DSL
+      </div>
+      
+      <div place="cart-1" 
+        part="fullscreen-textpanel" part-options="background-color: #0c0">
+        DSL
+      </div>
+      
+      <div place="cart-2" part="fullscreen-textpanel" part-options="background-color: #0c0">
+        DSL
+      </div>
+    </div>
+
+    <!-- Slide on timing -->
+      
+    <div id="timing">
+
+      <div place="wall">
+
+        <!-- Colours -->
+        <div place-region="c1r1w1h1" phase-begin="3s" style="background-color: #f00">&nbsp;</div>
+        <div place-region="c2r1w1h1" phase-begin="8s" style="background-color: #FF7400">&nbsp;</div>
+        <div place-region="c3r1w1h1" phase-begin="7s" style="background-color: #099">&nbsp;</div>
+        <div place-region="c4r1w1h1" phase-begin="10s" style="background-color: #0c0">&nbsp;</div>
+        <div place-region="c1r2w1h1" phase-begin="2s" style="background-color: #A64B00">&nbsp;</div>
+        <div place-region="c2r2w1h1" phase-begin="6s" style="background-color: #008500">&nbsp;</div>
+        <div place-region="c3r2w1h1" phase-begin="12s" style="background-color: #A60000">&nbsp;</div>
+        <div place-region="c4r2w1h1" phase-begin="9s" style="background-color: #006363">&nbsp;</div>
+        <div place-region="c1r3w1h1" phase-begin="5s" style="background-color: #5cc">&nbsp;</div>
+        <div place-region="c2r3w1h1" phase-begin="1s" style="background-color: #ff4040">&nbsp;</div>
+        <div place-region="c3r3w2h1" phase-begin="11s" style="background-color: #39E639">&nbsp;</div>
+        <div place-region="c4r3w1h1" phase-begin="4s" style="background-color: #FF9640">&nbsp;</div>
+
+        <!-- Labels -->        
+        <div place-region="c1r1w1h1" part="fullscreen-textpanel"><span>3 secs</span></div>
+        <div place-region="c2r1w1h1" part="fullscreen-textpanel"><span>8 secs</span></div>
+        <div place-region="c3r1w1h1" part="fullscreen-textpanel"><span>7 secs</span></div>
+        <div place-region="c4r1w1h1" part="fullscreen-textpanel"><span>10 secs</span></div>
+        <div place-region="c1r2w1h1" part="fullscreen-textpanel"><span>2 secs</span></div>
+        <div place-region="c2r2w1h1" part="fullscreen-textpanel"><span>6 secs</span></div>
+        <div place-region="c3r2w1h1" part="fullscreen-textpanel"><span>12 secs</span></div>
+        <div place-region="c4r2w1h1" part="fullscreen-textpanel"><span>9 secs</span></div>
+        <div place-region="c1r3w1h1" part="fullscreen-textpanel"><span>5 secs</span></div>
+        <div place-region="c2r3w1h1" part="fullscreen-textpanel"><span>1 secs</span></div>
+        <div place-region="c3r3w1h1" part="fullscreen-textpanel"><span>11 secs</span></div>
+        <div place-region="c4r3w1h1" part="fullscreen-textpanel"><span>4 secs</span></div>
+
+        <div place-region="c1r1w4h3" part="fullscreen-textpanel"><span>Timing</span></div>
+      </div>
+    </div>
+
+    <!--  Slide on distributed content  -->
+          
+    <div id="distributed-content" title="Distributed content">
+
+      <div place="wall">
+
+        <!-- Colours -->
+
+        <div place-region="c1r1w1h1" phase-begin="3s" style="background-color: #f00">&nbsp;</div>
+        <div place-region="c2r1w1h1" phase-begin="8s" style="background-color: #FF7400">&nbsp;</div>
+        <div place-region="c3r1w1h1" phase-begin="7s" style="background-color: #099">&nbsp;</div>
+        <div place-region="c4r1w1h1" phase-begin="10s" style="background-color: #0c0">&nbsp;</div>
+        <div place-region="c1r2w1h1" phase-begin="2s" style="background-color: #A64B00">&nbsp;</div>
+        <div place-region="c2r2w1h1" phase-begin="6s" style="background-color: #008500">&nbsp;</div>
+        <div place-region="c3r2w1h1" phase-begin="12s" style="background-color: #A60000">&nbsp;</div>
+        <div place-region="c4r2w1h1" phase-begin="9s" style="background-color: #006363">&nbsp;</div>
+        <div place-region="c1r3w1h1" phase-begin="5s" style="background-color: #5cc">&nbsp;</div>
+        <div place-region="c2r3w1h1" phase-begin="1s" style="background-color: #ff4040">&nbsp;</div>
+        <div place-region="c3r3w2h1" phase-begin="11s" style="background-color: #39E639">&nbsp;</div>
+        <div place-region="c4r3w1h1" phase-begin="4s" style="background-color: #FF9640">&nbsp;</div>
+
+        <!-- Labels -->   
+
+        <div place-region="c1r1w1h1" part="fullscreen-textpanel"><span>3 secs</span></div>
+        <div place-region="c2r1w1h1" part="fullscreen-textpanel"><span>8 secs</span></div>
+        <div place-region="c3r1w1h1" part="fullscreen-textpanel"><span>7 secs</span></div>
+        <div place-region="c4r1w1h1" part="fullscreen-textpanel"><span>10 secs</span></div>
+        <div place-region="c1r2w1h1" part="fullscreen-textpanel"><span>2 secs</span></div>
+        <div place-region="c2r2w1h1" part="fullscreen-textpanel"><span>6 secs</span></div>
+        <div place-region="c3r2w1h1" part="fullscreen-textpanel"><span>12 secs</span></div>
+        <div place-region="c4r2w1h1" part="fullscreen-textpanel"><span>9 secs</span></div>
+        <div place-region="c1r3w1h1" part="fullscreen-textpanel"><span>5 secs</span></div>
+        <div place-region="c2r3w1h1" part="fullscreen-textpanel"><span>1 secs</span></div>
+        <div place-region="c3r3w1h1" part="fullscreen-textpanel"><span>11 secs</span></div>
+        <div place-region="c4r3w1h1" part="fullscreen-textpanel"><span>4 secs</span></div>
+
+        <div place-region="all">Distributed content across displays and devices</div>
+      </div>
+
+      <div place="secondary"
+        part="fullscreen-textpanel" part-options="background-color: '#ff4040'">
+        Mobile view
+      </div>
+
+      <div place="cart-1" 
+        part="fullscreen-textpanel" part-options="background-color: '#0c0'">
+        Secondary display 1
+      </div>
+
+      <div place="cart-2"
+        part="fullscreen-textpanel" part-options="background-color: '#ff9640'">
+        Secondary display 2
+      </div>
+    </div>
+
+    <!-- Distributed control -->
+    
+    <div id="distributed-control" title="Distributed control">
+      <div place="wall" part="fullscreen-textpanel">
+        Choose
+      </div>
+      <div place="secondary" part="fullscreen-textpanel"> 
+        <!--control-buttons-->
+        <span>
+          <p>Choose</p>
+          <span class="choice" style="color: #ff7400">&#x2588;</span>
+          <span class="choice" style="color: #f00">&#x2588;</span>
+          <span class="choice" style="color: #099">&#x2588;</span>
+          <span class="choice" style="color: #0c0">&#x2588;</span>
+        </span>
+      </div>
+  </body>
+</html>
