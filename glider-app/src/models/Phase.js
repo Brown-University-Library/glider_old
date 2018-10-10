@@ -61,7 +61,9 @@
     //  (note: does not check for allowed/disallowed transitions)
 
     set state(s) {
-      if (this.currentState !== s) this.currentState = s;
+      if (this.currentState !== s) {
+        this.currentState = s;
+      }
     }
 
     get isComplete() {
@@ -71,10 +73,14 @@
     // Change state to complete and notify App
 
     complete(onComplete) {
+
       this.state = 'complete';
       this.notifyInactive();
       this.clearTimer();
-      if (typeof onComplete === 'function') onComplete();
+
+      if (typeof onComplete === 'function') {
+        onComplete();
+      }
     }
 
     // Change state to running and notify App
@@ -177,7 +183,9 @@
       this.complete();
     }
 
-    get isContainer() { return false }
+    get isContainer() { 
+      return false;
+    }
 
     // Main run routine
     // Schedule to run after delay and call
@@ -207,7 +215,9 @@
       this.childPhases = [];
     }
 
-    get isContainer() { return true }
+    get isContainer() { 
+      return true;
+    }
 
     addChild(childPhase) {
       childPhase.parentPhase = this;
@@ -236,7 +246,7 @@
     // Check if all the child phases have completed
 
     get allChildrenComplete() {
-      return this.childPhases.every(childPhase => childPhase.isComplete)
+      return this.childPhases.every(childPhase => childPhase.isComplete);
     }
 
     // Start all child phases running
@@ -303,7 +313,7 @@
     runChild(currChildPhaseIndex, onLastChildComplete) {
 
       let thisPhase = this,
-        isLastChild = this.childPhases.length === currChildPhaseIndex + 1,
+        isLastChild = (this.childPhases.length === currChildPhaseIndex + 1),
         currentChild = this.childPhases[currChildPhaseIndex],
         onChildComplete;
 
@@ -418,6 +428,8 @@
 
   Phase.clock = new Tempo();
   
+  // A routine to test the Phases TODO: delete for production
+
   function test() {
 
     let a = new App();
