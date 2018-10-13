@@ -2,6 +2,16 @@
 
   /* 
 
+  HOW DOES IT WORK?
+
+  - Seq Phases
+    Work by recursion: 
+    — the parent seq tells the first child to run, and gives it 
+      a function (onLastChildComplete) to call once all the children have run
+    - The first child phase becomes active and, once complete, activates its next sibling phase
+    - Repeat until the last child has completed, which signals to the parent seq phase 
+      that it’s done by calling onLastChildComplete
+
   CONTENTS
 
   - Class definitions:
@@ -30,14 +40,6 @@
   */
 
   // Classes
-
-
-/* 
-  Phase.states = { 
-    idle: 1,      // Unactivated and waiting (possible due to a delayed start)
-    running: 2,   // Active and running
-    complete: 3   // Completed being active
-  }; */
 
   export default class Phase {
 
