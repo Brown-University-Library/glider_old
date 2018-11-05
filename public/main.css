@@ -1,18 +1,23 @@
-  .hidden {
-      display:none;
-  }
+body {
+  margin:0px;
+  padding:0px;
+}
 
- /** .DSLWall {
+.hidden {
+    display:none;
+}
+
+.DXLWall .phase{
     display: grid;
     width: 100vw;
     margin: 0 auto;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     grid-gap: 0px;
     height:100vh;
-  } **/
+  }
   
-  .DSLWall {
+  .part-part1 {
       background-color:red;
   }
  
@@ -26,4 +31,8 @@
   
   .part-part2 h1 {
       color:white;
+  }
+
+  .part-part3 {
+    background-color:green;
   }

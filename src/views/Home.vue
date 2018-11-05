@@ -1,47 +1,49 @@
 <template>
   <div :ref="placeId" :class="['glider-root', placeId]">
-			<div id = "placeDefinitions">
-				<Place id="DXLabWall" type="grid" cols="2" rows="4"></Place>
-				<Place id="mobile"></Place>
-			</div>
-
-			<Phase id="phase1" duration="5000">
-				<Put on="DXLabWall/r1c1h1w1">
-					<!-- Here we're defining a part (i.e., "some content") 
+			<Phase id="phase1" duration="15000">
+				<Put on="DXLWall" region="r2c1w1h1">
+					<!-- Here we're defining a part (i.e., some content) 
 						and using it at the 
-						same time, showing it on 
-						DSLWall -->
+						same time, showing it on a specific DXLWall region -->
 					<Part ref="part1" id="part1">
 						<h1>Blahdeeblah I'm Part1</h1>
 						<p>And some content and stuff.</p>
 					</Part>
 				</Put>
 
-				<!-- In this Put, we're instantiating a new part that can be used somewhere else later. 
+				<!-- In this Put, we're instantiating a new part that can be used somewhere else later. We're calling it @part2 
 				But for now we're showing it on "mobile". -->
-				<Put on="mobile">
+				<Put on="DXLWall" region="r1c2w1h1">
 					<Part ref="part2" id="part2">
 						<h1>I'm part number two!</h1>
 						<p>And some additional content.</p>
 					</Part>
 				</Put>
+
+				<Put on="DXLWall" region="r2c1w2h1">
+					<Part ref="part3" id="part3">
+						<h1>I'm part number Three!</h1>
+						<p>And some additional content.</p>
+					</Part>
+				</Put>
+
 			</Phase>
 
 			<Phase id="phase2" duration="3000">
-				<!-- Here we're referencing @part1 and moving it to DSLWall.r1c3w1h1" -->
-				<Put on="DSLWall" part="part2"></Put>
+				<!-- Here we're referencing @part2 and moving it to a new DXLWall region" -->
+				<Put on="DXLWall" region="r1c1w1h1" part="part2"></Put>
 
-				<!-- We're also showing it at the endpoint "mobile." -->
-				<Put on="DSLWall" part="part1"></Put>
+				<!-- New spot for Part1 -->
+				<Put on="DXLWall" region="r1c2w1h1" part="part1"></Put>
 			</Phase>
 
 			<Phase id="phase3" duration="5000">
-				<!-- Here we're referencing @part1 and moving it to DSLWall" -->
-				<Put on="DSLWall" part="part1"></Put>
+				<!-- Here we're referencing @part1 and moving it to a specific DXLWall region" -->
+				<Put on="DXLWall" region="r1c1w1h1" part="part1"></Put>
 
-				<!-- We're also showing part1 it at the endpoint "mobile." -->
-				<Put on="mobile" part="part2"></Put>
-			</Phase>
+				<!-- We're also showing part1  at the endpoint "mobile." -->
+				<Put on="mobile" part="part1"></Put>
+			</Phase> 
   </div>
 </template>
 
@@ -59,7 +61,7 @@ export default {
   	Part,
 	Phase,
 	Put,
-	  Place
+	Place
   },
 
   data() {
@@ -95,10 +97,24 @@ export default {
 		this.killAllParts(this.$store.state.parts);
 
 		for (let i = 0; i < this.activePuts.length; i++) {
+			let put = this.activePuts[i];
 			let place = this.activePuts[i].place;
 			let part = this.activePuts[i].part;
-			if(this.$refs[place] != undefined)
-				this.$refs[part].activate();
+			let region = this.activePuts[i].region;
+			console.log(`Place ${place} gets Part ${part}`);
+			if(this.$refs[place] != undefined) {
+
+				// if(region != undefined){
+				// 	console.log(`Do it in this region: ${this.activePuts[i].region}`);
+				// 	this.$refs[part].putInRegion(region);
+				// }
+
+				let partComp = this.$refs[part];
+				partComp.$el.parentNode.removeChild(partComp.$el);
+				this.$children[this.activePhase].$el.appendChild(partComp.$el);
+				partComp.activate();
+				
+			}
 		}
 	}
   },

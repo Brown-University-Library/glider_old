@@ -1,5 +1,5 @@
 <template>
-  <div class="phase">
+  <div v-show="state=='active'" :class="['phase', placeId]">
     <slot></slot>
   </div>
 </template>
@@ -11,14 +11,15 @@ export default {
   name: 'Phase',
   props: {
     id: String,
-    state:String,
     duration: String,
-    first: String
+    first: String,
+    placeId:String
   }, 
 
   data() {
     return {
-      phaseDuration: this.duration
+      phaseDuration: this.duration,
+      state:"inactive"
     }
   },
 
@@ -40,9 +41,10 @@ export default {
       for(let i = 0; i < this.puts.length; i++) {
         let put = this.puts[i];
         let part = put.content;
+        let region = put.region;
         let place = put.on;
 
-        PP.push({part:part, place:place});
+        PP.push({part:part, place:place, region:region});
 
         //console.log(`Tell ${place} to show ${part}`);
 
@@ -69,13 +71,15 @@ export default {
     },
 
     notifiyActive() {
-      console.log(`${this.id} is active`);
+      this.state="active";
+      console.log(`Phase ${this.id} is active`);
       this.$store.dispatch('phaseActive', this)
     },
 
     notifyInactive(){
-      console.log(`${this.id} no longer active after ${this.duration} ms` );
-      console.log("It's time to trigger the next phase! Tell App.JS!");
+      this.state="inactive";
+      console.log(`Phase ${this.id} no longer active after ${this.duration} ms` );
+      console.log("It's time to trigger the next phase! Tell App.JS (or Home, or $store)!");
       
 
       this.$store.dispatch('phaseInactive', this)

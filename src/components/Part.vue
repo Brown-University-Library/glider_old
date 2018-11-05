@@ -1,6 +1,6 @@
 <template>
-  <div v-if="state=='active'" :class = "['part', 
-                  'part-' + this.id]">
+  <div v-show="state=='active'" :class = "['part', 
+                  'part-' + this.id]" :style="styleObject">
     <slot>
       {{id}}
     </slot>
@@ -115,6 +115,8 @@ export default {
       //parse the region
       let parsedRegion = this.getParsedRegionObject(region);
 
+      console.log(parsedRegion);
+      this.styleObject['display'] = "grid";
       this.styleObject['gridRow'] = parsedRegion.gridRow;
       this.styleObject['gridColumn'] = parsedRegion.gridColumn
       
