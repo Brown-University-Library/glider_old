@@ -34,7 +34,7 @@ export default {
   methods: {
   	start(){
       // kicks off the phase
-      this.notifiyActive();
+      this.notifyActive();
 
       let PP = [];
 
@@ -70,10 +70,10 @@ export default {
       this.notifyInactive();
     },
 
-    notifiyActive() {
+    notifyActive() {
       this.state="active";
       console.log(`Phase ${this.id} is active`);
-      this.$store.dispatch('phaseActive', this)
+      this.$store.dispatch('phaseActive', this.id)
     },
 
     notifyInactive(){

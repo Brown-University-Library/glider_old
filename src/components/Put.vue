@@ -21,7 +21,8 @@ export default {
 
 	data() {
 		return {
-			styleObject:{}
+			styleObject:{},
+			referencesAnotherPart:false
 		}
 	},
 
@@ -31,14 +32,14 @@ export default {
 
 	      // example: r1c1w1h1
 
-	      let r = region.split("r")[0].split("c")[1];
+ 		  let r = region.split("r")[1].split("c")[0];
 	      let c = region.split("w")[0].split("c")[1];
 	      let w = region.split("h")[0].split("w")[1];
 	      let h = region.split("h")[1];
 
 
-	      let gr = r + " / span " + h;
-	      let gc = c+ " / span " + w;
+	      let gr = r + " / span " + w;
+	      let gc = c+ " / span " + h;
 
 	      return {
 	        gridRow: gr,
@@ -66,9 +67,20 @@ export default {
 	computed: {
 		content(){
 			if(this.part != undefined) {
-				return this.part;
+	
+				let ret = {
+					part:this.part,
+					ref:true
+				}
+				return ret;
 			} else {
-				return this.$children[0].id;
+
+				let ret = {
+					part:this.$children[0].id,
+					ref:false
+				}
+
+				return ret;
 			}
 		}
 		// ,

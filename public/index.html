@@ -7,6 +7,21 @@
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <link href="main.css" rel="stylesheet">
     <title>glider-project</title>
+
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>    
+      const FBConfig = {
+        apiKey: "AIzaSyDiG79nyWATW1tcjLsD2YY2Zr5z8qW7ZyU",
+        authDomain: "glider-flightplan-example.firebaseapp.com",
+        databaseURL: "https://glider-flightplan-example.firebaseio.com",
+        projectId: "glider-flightplan-example",
+        storageBucket: "glider-flightplan-example.appspot.com",
+        messagingSenderId: "201089278480"
+      }
+      firebase.initializeApp(FBConfig);
+    </script>
+
+
   </head>
   <body>
     <noscript>

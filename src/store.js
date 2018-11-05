@@ -14,6 +14,8 @@ export default new Vuex.Store({
   mutations: {
 
     updatePhase(state,phaseIndex) {
+      firebase.database().ref().child("phase").set(phaseIndex);
+ 
       state.activePhase = phaseIndex;
     },
 
@@ -30,7 +32,6 @@ export default new Vuex.Store({
     registerPart(state, data) {
       state.parts.push(data);
     }
-
   },
   actions: {
     updatePhase(context,phaseIndex) {
@@ -39,12 +40,18 @@ export default new Vuex.Store({
 
     phaseInactive(phase) {
       console.log('store knows about inactive');
-      
-      this.commit("updatePhase", this.state.activePhase +1)
+      firebase.database().ref().child("phase").set(this.state.activePhase+1);
+      //this.commit("updatePhase", this.state.activePhase +1)
     },
 
     phaseActive(phase) {
-      console.log('store knows about active');
+     firebase.database().ref().child("phase").set(this.state.activePhase);
+      let that = this;
+      const remotePhase = firebase.database().ref().child('phase');
+      remotePhase.on('value', function(snapshot) {
+            let myphase = snapshot.val();
+            that.state.activePhase = myphase;
+      });
     },
 
     updateActivePuts(context,data){
@@ -52,7 +59,7 @@ export default new Vuex.Store({
     },
 
     registerPart(context,data) {
-      conext.commit("registerPart", data);
+      context.commit("registerPart", data);
     }
   }
 })
