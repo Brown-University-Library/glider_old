@@ -13,7 +13,6 @@ export default {
   name: 'Part',
   inherit: true,
   props: {
-    state: "",
     id: String,
     // comes from the def in markup. copied to attrs below.
     shared:String     
@@ -21,9 +20,9 @@ export default {
 
   data() {
     return {
-      name:"Part!",
       views:[],     
       styleObject:{},
+      state:"inactive",
       activeView: null
     }
   },
@@ -58,10 +57,12 @@ export default {
         attrs: JSON.parse(that.shared)
       };
 
-      this.$store.commit('registerPartAttrs', thing);
+      //this.$store.commit('registerPartAttrs', thing);
       
       this.styleObject.backgroundColor = this.attrs.bgColor;
     }
+
+          this.$store.commit('registerPart', this);
 
   },
 
@@ -86,7 +87,7 @@ export default {
 
     activate(view){
       this.state = "active";
-      this.activeView = view;
+      //this.activeView = view;
       //this.activeView.activate();
     },
 

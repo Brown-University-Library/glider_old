@@ -1,0 +1,29 @@
+  .hidden {
+      display:none;
+  }
+
+ /** .DSLWall {
+    display: grid;
+    width: 100vw;
+    margin: 0 auto;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap: 0px;
+    height:100vh;
+  } **/
+  
+  .DSLWall {
+      background-color:red;
+  }
+ 
+  .part-introSlide h1 {
+      color:#333;
+  }
+  
+  .part-part2{
+      background-color:blue;
+  }
+  
+  .part-part2 h1 {
+      color:white;
+  }
