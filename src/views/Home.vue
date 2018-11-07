@@ -1,6 +1,6 @@
 <template>
   <div :ref="placeId" :class="['glider-root', placeId]">
-		<Phase id="phase1" duration="15000">
+		<Phase id="phase1">
 			<Put on="DXLWall" region="r1c1w1h1">
 				<!-- Here we're defining a part (i.e., some content) 
 					and using it at the 
@@ -8,20 +8,18 @@
 				<Part ref="part1" id="part1">
 					<h1>Blahdeeblah I'm Part1</h1>
 					<p>And some content and stuff.</p>
+					<img src="http://placekitten.com/200/200">
 				</Part>
 			</Put>
 
 			<!-- In this Put, we're instantiating a new part that can be used somewhere else later. We're calling it @part2 
 			But for now we're showing it on "mobile". -->
-			<Put on="DXLWall" region="r1c2w1h1">
+			<Put on="DXLWall" region="r2c2w1h1">
 				<Part ref="part2" id="part2">
 					<h1>I'm part number two!</h1>
 					<p>And some additional content.</p>
 				</Part>
 			</Put>
-
-			
-
 		</Phase>
 
 		<Phase id="phase2" duration="3000">
@@ -34,13 +32,11 @@
 
 		<Phase id="phase3" duration="5000">
 			<!-- Here we're referencing @part1 and moving it to a specific DXLWall region" -->
-			<Put on="DXLWall" region="r1c1w1h1" part="part1"></Put>
+			<Put on="DXLWall" region="r1c1w2h2" part="part1"></Put>
 
 			<!-- We're also showing part1  at the endpoint "mobile." -->
 			<Put on="mobile" part="part1"></Put>
-		</Phase> 
-
-
+		</Phase>
   </div>
 </template>
 
@@ -53,7 +49,12 @@ import Place from '@/components/Place.vue'
 
 export default {
   name: 'home',
-  props:['placeId'],
+  props:{
+		placeId:String,
+		canControl:{
+			type:String
+		}
+	},
   components: {
   	Part,
 	Phase,
@@ -63,7 +64,8 @@ export default {
 
   data() {
 	  return {
-
+		  initialPhaseIndex:Number,
+		  outerPhases:[]
 	  }
   },
 
@@ -72,7 +74,14 @@ export default {
 		for (let i=0; i < parts.length; i++) {
 			parts[i].deactivate();
 		}
-	  }
+	  },
+
+	mapPhases() {
+
+		for(let i = 0; i < this.outerPhases.length; i++) {
+			this.outerPhases[i].nextPhase = this.outerPhases[i+1];
+		}
+	}
   },
 
   computed: {
@@ -87,7 +96,7 @@ export default {
 
   watch: {
 	activePhase() {
-		this.$children[this.activePhase].start();
+		this.activePhase.start();
 	},
 
 	activePuts() {
@@ -98,14 +107,16 @@ export default {
 			let place = this.activePuts[i].place;
 			let part = this.activePuts[i].part;
 			let region = this.activePuts[i].region;
-			console.log(`Place ${place} gets Part ${part}`);
+			console.log(`Place ${place}.${region} gets Part ${part.part}`);
 			if(this.$refs[place] != undefined) {				
 
+				// reference to the part component
 				let partComp = this.$refs[part.part];
 
 				if(part.ref == true) {
+					
 					partComp.$el.parentNode.removeChild(partComp.$el);
-					this.$children[this.activePhase].$el.appendChild(partComp.$el);
+					put.put.$el.appendChild(partComp.$el);
 				}
 
 				partComp.activate();
@@ -116,7 +127,27 @@ export default {
   },
 
   mounted() {
-		this.$children[this.activePhase].start();
+		this.outerPhases = this.$children.filter(comp => comp.$options.name === 'Phase');
+		this.mapPhases();
+		this.$store.dispatch('registerOuterPhases', this.outerPhases).then(response => {
+			this.$store.dispatch('updatePhase', this.outerPhases[0]);
+        }, error => {
+            console.error("Got nothing from store for some reason.")
+		});
+		
+		if(this.canControl != undefined) {
+			console.log("doing a keyboard controller");
+			let that = this; 
+			document.onkeydown = function(e) {
+				e = e || window.event;
+				if (e.keyCode == '39') {
+					that.activePhase.complete();
+				}
+				else if (e.keyCode == '37') {
+					// go to previous phase somehow
+				}
+			}
+		}
   }
 }
 </script>

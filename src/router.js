@@ -12,7 +12,7 @@ export default new Router({
       component: Home
     },
     {
-      path:'/place/:placeId',
+      path:'/place/:placeId/:canControl?',
       name:'Home',
       component:Home,
       props:true

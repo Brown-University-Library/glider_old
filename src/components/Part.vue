@@ -91,37 +91,6 @@ export default {
       //this.activeView.activate();
     },
 
-    getParsedRegionObject(region) {
-
-      // example: r1c1w1h1
-
-      let r = region.split("c")[0].split("r")[1];
-      let c = region.split("w")[0].split("c")[1];
-      let w = region.split("h")[0].split("w")[1];
-      let h = region.split("h")[1];
-
-
-      let gr = r + " / span " + h;
-      let gc = c+ " / span " + w;
-
-      return {
-        gridRow: gr,
-        gridColumn: gc
-      }
-    },
-
-    putInRegion(region) {
-      
-      //parse the region
-      let parsedRegion = this.getParsedRegionObject(region);
-
-      console.log(parsedRegion);
-      this.styleObject['display'] = "grid";
-      this.styleObject['gridRow'] = parsedRegion.gridRow;
-      this.styleObject['gridColumn'] = parsedRegion.gridColumn
-      
-    }, 
-
     updateSharedAttribute(attr, val) {
       this.attrs[attr] = val;
     }

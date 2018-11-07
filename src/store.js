@@ -5,24 +5,22 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    activePhase: 0,
+    activePhase: Object,
     activePuts: [],
     parts: [],
     activeParts:[],
-    places: []
+    places: [],
+    outerPhases:[]
   },
   mutations: {
 
-    updatePhase(state,phaseIndex) {
-      firebase.database().ref().child("phase").set(phaseIndex);
- 
-      state.activePhase = phaseIndex;
+    updatePhase(state,phaseObject) {
+      //firebase.database().ref().child("phase").set(phaseObject.id);
+      state.activePhase = phaseObject;
     },
 
     updateActivePuts(state, data) {
       state.activePuts = data;
-      // console.log("updated...");
-      // console.log(data);
     },
 
     updateActiveParts(state,data) {
@@ -31,27 +29,26 @@ export default new Vuex.Store({
 
     registerPart(state, data) {
       state.parts.push(data);
+    },
+
+    registerOuterPhases(state,data) {
+      state.outerPhases = data;
     }
   },
   actions: {
-    updatePhase(context,phaseIndex) {
-      context.commit('updatePhase', phaseIndex);
+    updatePhase(context,phase) {
+      context.commit('updatePhase', phase);
     },
 
     phaseInactive(phase) {
-      console.log('store knows about inactive');
-      firebase.database().ref().child("phase").set(this.state.activePhase+1);
-      //this.commit("updatePhase", this.state.activePhase +1)
+      //firebase.database().ref().child("phase").set(this.state.activePhase+1);
+      if(this.state.activePhase.nextPhase!= undefined)
+        this.commit("updatePhase", this.state.activePhase.nextPhase)
     },
 
-    phaseActive(phase) {
-     firebase.database().ref().child("phase").set(this.state.activePhase);
-      let that = this;
-      const remotePhase = firebase.database().ref().child('phase');
-      remotePhase.on('value', function(snapshot) {
-            let myphase = snapshot.val();
-            that.state.activePhase = myphase;
-      });
+    phaseActive(context,phase) {
+      context.commit('updatePhase',phase);
+      //this.state.activePhase = phase;
     },
 
     updateActivePuts(context,data){
@@ -60,6 +57,10 @@ export default new Vuex.Store({
 
     registerPart(context,data) {
       context.commit("registerPart", data);
+    },
+
+    registerOuterPhases(context, phases){
+      context.commit('registerOuterPhases', phases);
     }
   }
 })

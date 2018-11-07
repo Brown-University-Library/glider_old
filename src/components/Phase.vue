@@ -19,16 +19,22 @@ export default {
   data() {
     return {
       phaseDuration: this.duration,
-      state:"inactive"
+      state:"inactive",
+      type:String,
+      nextPhase:Object,
+      timer: Object
     }
   },
 
   mounted() {
+    // update to filter on Puts
     this.puts = this.$children;
   },
 
   computed: {
-    
+    childPhases() {
+      this.$children.filter(comp => comp.$options.name === 'Phase')
+    }
   },
 
   methods: {
@@ -44,7 +50,7 @@ export default {
         let region = put.region;
         let place = put.on;
 
-        PP.push({part:part, place:place, region:region});
+        PP.push({put:put,part:part, place:place, region:region});
 
         //console.log(`Tell ${place} to show ${part}`);
 
@@ -63,26 +69,25 @@ export default {
       let that = this;
       let after = function(){ that.complete() };
       let d = +this.duration;
-      setTimeout(after,d);
+      this.timer = setTimeout(after,d);
     },
 
     complete() {
+      clearTimeout(this.timer);
       this.notifyInactive();
     },
 
     notifyActive() {
       this.state="active";
-      console.log(`Phase ${this.id} is active`);
-      this.$store.dispatch('phaseActive', this.id)
+      this.$store.dispatch('phaseActive', this);
     },
 
     notifyInactive(){
+      for (let i = 0; i < this.puts.length; i++) {
+        console.log("kill da puts");
+      }
       this.state="inactive";
-      console.log(`Phase ${this.id} no longer active after ${this.duration} ms` );
-      console.log("It's time to trigger the next phase! Tell App.JS (or Home, or $store)!");
-      
-
-      this.$store.dispatch('phaseInactive', this)
+      this.$store.dispatch('phaseInactive', this);
     }
 
   }

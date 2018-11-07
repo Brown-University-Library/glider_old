@@ -1,5 +1,5 @@
 <template>
-  <div class="put" :style="styleObject">
+  <div v-show="state=='active'" class="put" :style="styleObject">
     <slot></slot>
   </div>
 </template>
@@ -9,10 +9,6 @@ import Part from '@/components/Part.vue'
 export default {
   name: 'Put',
 	props : {
-		state: {
-		  type: String,
-		  default:"inactive"
-		},
 		part:String,
 		place:String,
 		on:String,
@@ -22,6 +18,7 @@ export default {
 	data() {
 		return {
 			styleObject:{},
+			state:"active",
 			referencesAnotherPart:false
 		}
 	},
@@ -32,14 +29,14 @@ export default {
 
 	      // example: r1c1w1h1
 
- 		  let r = region.split("r")[1].split("c")[0];
+ 		  	let r = region.split("r")[1].split("c")[0];
 	      let c = region.split("w")[0].split("c")[1];
-	      let w = region.split("h")[0].split("w")[1];
+	      let w = region.split("w")[1].split("h")[0];
 	      let h = region.split("h")[1];
 
 
-	      let gr = r + " / span " + w;
-	      let gc = c+ " / span " + h;
+	      let gr = r + " / span " + h;
+	      let gc = c+ " / span " + w;
 
 	      return {
 	        gridRow: gr,
@@ -52,13 +49,11 @@ export default {
 	      //parse the region
 	      let parsedRegion = this.getParsedRegionObject(this.region);
 	      
-	      console.log(parsedRegion);
 	      
 	      this.styleObject['display'] = "grid";
 	      this.styleObject['gridRow'] = parsedRegion.gridRow;
 	      this.styleObject['gridColumn'] = parsedRegion.gridColumn
 	      
-	      console.log(this.styleObject);
 	      
 	    }
 
@@ -66,15 +61,15 @@ export default {
 
 	computed: {
 		content(){
+			// if the Part in this Put is a REFERENCE to a previously-created part
 			if(this.part != undefined) {
-	
 				let ret = {
 					part:this.part,
 					ref:true
 				}
 				return ret;
 			} else {
-
+				// If the Part is created inside the Put
 				let ret = {
 					part:this.$children[0].id,
 					ref:false
@@ -83,14 +78,6 @@ export default {
 				return ret;
 			}
 		}
-		// ,
-
-		// region() {
-		// 	return {
-		// 		gridRow:this.gridRows + " / span " + this.spanRows,
-		// 		gridColumn:this.gridCols + " / span " + this.spanCols
-		// 	}
-		// }
 	},
 
 	mounted() {
