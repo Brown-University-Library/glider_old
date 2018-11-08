@@ -3,20 +3,35 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
-  state: {
+  const state = {
     activePhase: Object,
+    isPusher:false,
+    inFlight:false,
     activePuts: [],
     parts: [],
     activeParts:[],
     places: [],
+    allPhases:{},
     outerPhases:[]
-  },
-  mutations: {
+  }
+
+ const mutations = {
 
     updatePhase(state,phaseObject) {
-      //firebase.database().ref().child("phase").set(phaseObject.id);
+      pushRemote("phase", phaseObject.id);
+
+      const remotePhase = firebase.database().ref().child('phase');
+      remotePhase.on('value', function(snapshot) {
+            let myphase = snapshot.val();
+            state.activePhase = state.allPhases[myphase];
+      });
+
+
       state.activePhase = phaseObject;
+    },
+
+    registerPhase(state, phase) {
+      state.allPhases[phase.id] = phase;
     },
 
     updateActivePuts(state, data) {
@@ -33,9 +48,13 @@ export default new Vuex.Store({
 
     registerOuterPhases(state,data) {
       state.outerPhases = data;
+    },
+
+    registerPusherStatus(state, data) {
+      state.isPusher = data;
     }
-  },
-  actions: {
+  }
+  const actions = {
     updatePhase(context,phase) {
       context.commit('updatePhase', phase);
     },
@@ -61,6 +80,30 @@ export default new Vuex.Store({
 
     registerOuterPhases(context, phases){
       context.commit('registerOuterPhases', phases);
+    },
+
+    registerPusherStatus(context, data) {
+      context.commit('registerPusherStatus', data);
+    },
+
+    registerPhase(context, phase) {
+      context.commit('registerPhase', phase);
     }
   }
+
+  function pushRemote(path, value) {
+    if (state.isPusher)
+      firebase.database().ref().child(path).set(value);
+  }
+
+  
+
+  // ** RemoteyGuys **/
+
+ 
+
+  export default new Vuex.Store({
+    state,
+    mutations,
+    actions
 })

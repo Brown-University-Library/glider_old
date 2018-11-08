@@ -20,22 +20,42 @@
 					<p>And some additional content.</p>
 				</Part>
 			</Put>
+
+			<!-- In this Put, we're instantiating a new part that can be used somewhere else later. We're calling it @part2 
+			But for now we're showing it on "mobile". -->
+			<Put on="mobile">
+				<Part ref="forMobile" id="forMobile">
+					<h1>Here's some content on Mobile.</h1>
+				</Part>
+			</Put>
+
+
 		</Phase>
 
-		<Phase id="phase2" duration="3000">
+		<Phase id="phase2">
 			<!-- Here we're referencing @part2 and moving it to a new DXLWall region" -->
 			<Put on="DXLWall" region="r1c1w1h1" part="part2"></Put>
 
 			<!-- New spot for Part1 -->
 			<Put on="DXLWall" region="r1c2w1h1" part="part1"></Put>
+
+			<Put on="mobile">
+				<Part ref="forMobile2" id="forMobile2">
+					<h1>I forget if there's stuff on Mobile right now.</h1>
+				</Part>
+			</Put>
 		</Phase>
 
-		<Phase id="phase3" duration="5000">
+		<Phase id="phase3" >
 			<!-- Here we're referencing @part1 and moving it to a specific DXLWall region" -->
 			<Put on="DXLWall" region="r1c1w2h2" part="part1"></Put>
 
-			<!-- We're also showing part1  at the endpoint "mobile." -->
-			<Put on="mobile" part="part1"></Put>
+			<Put on="mobile">
+				<Part ref="forMobile3" id="forMobile3">
+					<h2>Here's a kitten!</h2>
+					<img src="http://placekitten.com/400/400">
+				</Part>
+			</Put>
 		</Phase>
   </div>
 </template>
@@ -85,6 +105,12 @@ export default {
   },
 
   computed: {
+	inFlight() {
+		return this.$store.state.inFlight;
+	},
+	pusher() {
+		return (this.canControl == "true");
+	},
 	activePhase() {
 		return this.$store.state.activePhase
 	},
@@ -128,14 +154,9 @@ export default {
 
   mounted() {
 		this.outerPhases = this.$children.filter(comp => comp.$options.name === 'Phase');
-		this.mapPhases();
-		this.$store.dispatch('registerOuterPhases', this.outerPhases).then(response => {
-			this.$store.dispatch('updatePhase', this.outerPhases[0]);
-        }, error => {
-            console.error("Got nothing from store for some reason.")
-		});
-		
-		if(this.canControl != undefined) {
+
+		this.$store.dispatch('registerPusherStatus', this.pusher);
+		if(this.pusher) {
 			console.log("doing a keyboard controller");
 			let that = this; 
 			document.onkeydown = function(e) {
@@ -148,6 +169,16 @@ export default {
 				}
 			}
 		}
+
+		this.mapPhases();
+
+		this.$store.dispatch('registerOuterPhases', this.outerPhases).then(response => {
+			this.$store.dispatch('updatePhase', this.outerPhases[0]);
+        }, error => {
+            console.error("Got nothing from store for some reason.")
+		});
+		
+
   }
 }
 </script>

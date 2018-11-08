@@ -29,6 +29,8 @@ export default {
   mounted() {
     // update to filter on Puts
     this.puts = this.$children;
+
+    this.$store.dispatch('registerPhase', this);
   },
 
   computed: {

@@ -2,7 +2,7 @@ body {
   margin:0px;
   padding:0px;
 }
-
+ 
 .hidden {
     display:none;
 }
@@ -31,6 +31,7 @@ body {
   
   .part-part2{
       background-color:blue;
+      color:#eee;
   }
   
   .part-part2 h1 {
