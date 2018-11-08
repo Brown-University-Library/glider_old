@@ -1,0 +1,43 @@
+body {
+  margin:0px;
+  padding:0px;
+}
+ 
+.hidden {
+    display:none;
+}
+
+.img {
+    max-width:100%;
+}
+
+.DXLWall .phase{
+    display: grid;
+    width: 100vw;
+    margin: 0 auto;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-gap: 0px;
+    height:100vh;
+  }
+  
+  .part-part1 {
+      background-color:red;
+  }
+ 
+  .part-introSlide h1 {
+      color:#333;
+  }
+  
+  .part-part2{
+      background-color:blue;
+      color:#eee;
+  }
+  
+  .part-part2 h1 {
+      color:white;
+  }
+
+  .part-part3 {
+    background-color:green;
+  }
