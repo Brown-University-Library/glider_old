@@ -1,61 +1,87 @@
 <template>
   <div :ref="placeId" :class="['glider-root', placeId]">
 		<Phase id="phase1">
-			<Put on="DXLWall" region="r1c1w1h1">
+			<Put on="DXLWall" region="r1c1w2h1">
 				<!-- Here we're defining a part (i.e., some content) 
 					and using it at the 
 					same time, showing it on a specific DXLWall region -->
-				<Part ref="part1" id="part1">
-					<h1>Blahdeeblah I'm Part1</h1>
-					<p>And some content and stuff.</p>
-					<img src="http://placekitten.com/200/200">
+				<Part ref="welcomevid" id="welcomevid">
+					<video autoplay width="320" height="240" loop muted>
+						<source src="assets/Composition_1.mp4" type="video/mp4">
+					</video>
+				</Part>
+			</Put>
+
+			<!-- In this Put, we're instantiating a new part that can be used somewhere else later. We're calling it @part2 
+			But for now we're showing it on "mobile". -->
+			<Put on="DXLWall" region="r2c1w1h1">
+				<Part ref="todaysweather" id="todaysweather">
+					<video autoplay width="320" height="240" loop muted>
+						<source src="assets/left-weather-today.mp4" type="video/mp4">
+					</video>
 				</Part>
 			</Put>
 
 			<!-- In this Put, we're instantiating a new part that can be used somewhere else later. We're calling it @part2 
 			But for now we're showing it on "mobile". -->
 			<Put on="DXLWall" region="r2c2w1h1">
-				<Part ref="part2" id="part2">
-					<h1>I'm part number two!</h1>
-					<p>And some additional content.</p>
+				<Part ref="tomorrowsweather" id="tomorrowsweather">
+					<video autoplay width="320" height="240" loop muted>
+						<source src="assets/right-weather-tomorrow.mp4" type="video/mp4">
+					</video>
 				</Part>
 			</Put>
 
-			<!-- In this Put, we're instantiating a new part that can be used somewhere else later. We're calling it @part2 
-			But for now we're showing it on "mobile". -->
 			<Put on="mobile">
-				<Part ref="forMobile" id="forMobile">
-					<h1>Here's some content on Mobile.</h1>
+				<Part id="mobile-content-1">
+					<h1>Maybe this is on mobile?</h1>
 				</Part>
 			</Put>
 
 
 		</Phase>
 
-		<Phase id="phase2">
+		<Phase id="studentwork1">
 			<!-- Here we're referencing @part2 and moving it to a new DXLWall region" -->
-			<Put on="DXLWall" region="r1c1w1h1" part="part2"></Put>
+			<Put on="DXLWall" region="r1c1w1h1">
+				<Part ref="student-work-1" id="student-work-1">
+					<video autoplay width="320" height="240" loop muted>
+						<source src="assets/1.mp4" type="video/mp4">
+					</video>
+				</Part>
+			</Put>
 
 			<!-- New spot for Part1 -->
-			<Put on="DXLWall" region="r1c2w1h1" part="part1"></Put>
-
-			<Put on="mobile">
-				<Part ref="forMobile2" id="forMobile2">
-					<h1>I forget if there's stuff on Mobile right now.</h1>
+			<Put on="DXLWall" region="r1c2w1h1">
+				<Part ref="student-work-2" id="student-work-2">
+					<video autoplay width="320" height="240" loop muted>
+						<source src="assets/2.mp4" type="video/mp4">
+					</video>
 				</Part>
 			</Put>
-		</Phase>
 
-		<Phase id="phase3" >
-			<!-- Here we're referencing @part1 and moving it to a specific DXLWall region" -->
-			<Put on="DXLWall" region="r1c1w2h2" part="part1"></Put>
-
-			<Put on="mobile">
-				<Part ref="forMobile3" id="forMobile3">
-					<h2>Here's a kitten!</h2>
-					<img src="http://placekitten.com/400/400">
+			<Put on="DXLWall" region="r2c1w1h1">
+				<Part ref="student-work-3" id="student-work-3">
+					<video autoplay width="320" height="240" loop muted>
+						<source src="assets/3.mp4" type="video/mp4">
+					</video>
 				</Part>
 			</Put>
+
+			<Put on="DXLWall" region="r2c2w1h1">
+				<Part ref="student-work-4" id="student-work-4">
+					<video autoplay width="320" height="240" loop muted>
+						<source src="assets/4.mp4" type="video/mp4">
+					</video>
+				</Part>
+			</Put>			
+
+			<Put on="mobile">
+				<Part id="mobile-content-2">
+					<h1>Hey, look up at the screen to see some work!</h1>
+				</Part>
+			</Put>
+
 		</Phase>
   </div>
 </template>
