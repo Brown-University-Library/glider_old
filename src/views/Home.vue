@@ -33,7 +33,7 @@
 			</Put>
 
 			<Put on="mobile">
-				<Part id="mobile-content-1" ref="mobile-content=1">
+				<Part id="mobile-content-1" ref="mobile-content-1">
 					<h1>Welcome! Check out the screens for stuff you might like. Sorry we made your phone download all this!</h1>
 				</Part>
 			</Put>
@@ -77,7 +77,7 @@
 			</Put>			
 
 			<Put on="mobile">
-				<Part id="mobile-content-2" ref="mobile-content=2">
+				<Part id="mobile-content-2" ref="mobile-content-2">
 					<h1>Hey, look up at the screen to see some work!</h1>
 				</Part>
 			</Put>
