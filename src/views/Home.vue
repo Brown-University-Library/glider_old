@@ -5,15 +5,15 @@
 				<!-- Here we're defining a part (i.e., some content) 
 					and using it at the 
 					same time, showing it on a specific DXLWall region -->
-				<Part ref="welcomevid" id="welcomevid">
+				<Part ref="welcomevid" id="welcomevid" shared='{"bgColor":"red", "fontSize:":30}'>
 					<video autoplay width="320" height="240" loop muted>
 						<source src="assets/Composition_1.mp4" type="video/mp4">
 					</video>
 				</Part>
 			</Put>
 
-			<!-- In this Put, we're instantiating a new part that can be used somewhere else later. We're calling it @part2 
-			But for now we're showing it on "mobile". -->
+			<!-- In this Put, we're instantiating a new part that can be used somewhere else later. We're calling it @todaysweather 
+			But for now we're showing it on "r2c1w1h1". -->
 			<Put on="DXLWall" region="r2c1w1h1">
 				<Part ref="todaysweather" id="todaysweather">
 					<video autoplay width="320" height="240" loop muted>
@@ -22,8 +22,6 @@
 				</Part>
 			</Put>
 
-			<!-- In this Put, we're instantiating a new part that can be used somewhere else later. We're calling it @part2 
-			But for now we're showing it on "mobile". -->
 			<Put on="DXLWall" region="r2c2w1h1">
 				<Part ref="tomorrowsweather" id="tomorrowsweather">
 					<video autoplay width="320" height="240" loop muted>
@@ -34,7 +32,7 @@
 
 			<Put on="mobile">
 				<Part id="mobile-content-1" ref="mobile-content-1">
-					<h1>Welcome! Check out the screens for stuff you might like. Sorry we made your phone download all this!</h1>
+					<button v-on:click = "updateAttr('welcomeVid','fontSize', '30px')">Do The Thing</button>
 				</Part>
 			</Put>
 
@@ -89,6 +87,7 @@
 <script>
 // @ is an alias to /src
 import Part from '@/components/Part.vue'
+import VideoEmbed from '@/components/VideoEmbed.vue'
 import Phase from '@/components/Phase.vue'
 import Put from '@/components/Put.vue'
 import Place from '@/components/Place.vue'
@@ -123,11 +122,24 @@ export default {
 	  },
 
 	mapPhases() {
-
 		for(let i = 0; i < this.outerPhases.length; i++) {
 			this.outerPhases[i].nextPhase = this.outerPhases[i+1];
 		}
-	}
+	},
+
+	updateAttr : function(ref, attr, val) {
+      let that = this;
+      let thing = {
+        id: ref,
+        attr: {
+          name: attr,
+          val: val
+        }
+      }
+
+      this.$store.commit("updatePartAttr", thing);
+
+    },
   },
 
   computed: {
@@ -178,10 +190,15 @@ export default {
 	}
   },
 
+  created() {
+		this.$store.dispatch('registerPusherStatus', this.pusher);
+		console.log("here we go!");
+		console.log(this.pusher);
+  },
+
   mounted() {
 		this.outerPhases = this.$children.filter(comp => comp.$options.name === 'Phase');
 
-		this.$store.dispatch('registerPusherStatus', this.pusher);
 		if(this.pusher) {
 			console.log("doing a keyboard controller");
 			let that = this; 

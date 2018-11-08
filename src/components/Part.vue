@@ -1,8 +1,8 @@
 <template>
   <div v-show="state=='active'" :class = "['part', 
-                  'part-' + this.id]" :style="styleObject">
+                  'part-' + this.id, 'attr-'+atts]" :style="styleObject">
     <slot>
-      {{id}}
+
     </slot>
   </div>
 </template>
@@ -15,7 +15,7 @@ export default {
   props: {
     id: String,
     // comes from the def in markup. copied to attrs below.
-    shared:String     
+    shared:String   
   },
 
   data() {
@@ -33,36 +33,25 @@ export default {
         partAttrs: 'getSharedPartAttributes'
     }),
 
-    attrs: function (ctx) {
+    atts: function (ctx) {
       return ctx.partAttrs(ctx.id)
     }
+  },
+
+  watch: {
+
   },
 
   updated() {
     this.populateViews();
     let v = this.getViewById(this.activeView);
     if(v !== undefined) v.updateState("active");
-
-    console.log("component updated");
   },
 
   mounted() {
 
-    let that = this;
 
-    if(that.shared != undefined) {
-
-      let thing = {
-        id:that.id,
-        attrs: JSON.parse(that.shared)
-      };
-
-      //this.$store.commit('registerPartAttrs', thing);
-      
-      this.styleObject.backgroundColor = this.attrs.bgColor;
-    }
-
-          this.$store.commit('registerPart', this);
+    this.$store.dispatch('registerPart', this);
 
   },
 
@@ -89,10 +78,6 @@ export default {
       this.state = "active";
       //this.activeView = view;
       //this.activeView.activate();
-    },
-
-    updateSharedAttribute(attr, val) {
-      this.attrs[attr] = val;
     }
   }
 }

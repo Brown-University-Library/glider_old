@@ -8,12 +8,24 @@ Vue.use(Vuex)
     isPusher:false,
     inFlight:false,
     activePuts: [],
-    parts: [],
+    parts: {},
     activeParts:[],
     places: [],
     allPhases:{},
     outerPhases:[]
   }
+
+  const getters = {
+
+    getSharedPartAttributes: (state) => (part) => {
+        let ret = JSON.parse(state.parts[part].attrs);
+
+        if (ret != undefined)
+            return ret;
+    }
+}
+
+  
 
  const mutations = {
 
@@ -43,7 +55,26 @@ Vue.use(Vuex)
     },
 
     registerPart(state, data) {
-      state.parts.push(data);
+      console.log("store is registering part");
+      state.parts[data.id] = data; 
+
+      let remotePath = "parts/"+data.id+"/attrs/";
+
+      if(data.shared != undefined) {
+        state.parts[data.id].attrs = data.shared;
+        pushRemote(remotePath, data.shared);
+      } else {
+        state.parts[data.id].attrs = {};
+        pushRemote(remotePath, "{}");
+      }
+
+      const remoteAttrs = firebase.database().ref().child(remotePath);
+      remoteAttrs.on('value', function(snapshot) {
+            let myAttrs = snapshot.val();
+            console.log(`${remotePath} has changed`);
+            state.parts[data.id].attrs = myAttrs;
+            console.log(state.parts[data.id].attrs);
+      });
     },
 
     registerOuterPhases(state,data) {
@@ -88,12 +119,18 @@ Vue.use(Vuex)
 
     registerPhase(context, phase) {
       context.commit('registerPhase', phase);
+    },
+
+    registerPartAttributes(context, obj) {
+      context.commit('registerPartAttributes', obj);
     }
   }
 
   function pushRemote(path, value) {
-    if (state.isPusher)
+    if (state.isPusher) {
+      console.log("finna push to " + path);
       firebase.database().ref().child(path).set(value);
+    }
   }
 
   
@@ -104,6 +141,7 @@ Vue.use(Vuex)
 
   export default new Vuex.Store({
     state,
+    getters,
     mutations,
     actions
 })
